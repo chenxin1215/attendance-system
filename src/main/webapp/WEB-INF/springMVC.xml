@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+    <!-- SpringMVC的配置文件，包含网站跳转逻辑的控制，配置 -->
+    <context:component-scan base-package="com.attendance">
+        <!-- 只扫描控制器-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 自动为切面方法中匹配的方法所在的类生成代理对象。 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <!-- 加载静态资源 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 配置拦截器 -->
+    <!--<mvc:interceptors>
+        &lt;!&ndash; 多个拦截器，按顺序执行 &ndash;&gt;
+        &lt;!&ndash; 外部请求拦截 &ndash;&gt;
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/> &lt;!&ndash; 表示拦截路径 &ndash;&gt;
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/ueditor/**"/>
+            <mvc:exclude-mapping path="/user/goUserLogin"/>
+            <mvc:exclude-mapping path="/stu/stuLogin"/>
+            <mvc:exclude-mapping path="/stu/login"/>
+            <mvc:exclude-mapping path="/user/returnMain"/>
+            <bean class="com.danzhao.intercapter.HandlerInterceptor_withOut"/>
+        </mvc:interceptor>
+        &lt;!&ndash; 管理员登陆拦截 &ndash;&gt;
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/> &lt;!&ndash; 表示拦截路径 &ndash;&gt;
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/ueditor/**"/>
+            <mvc:exclude-mapping path="/user/sendEmail"/>
+            <mvc:exclude-mapping path="/user/goUserLogin"/>
+            <mvc:exclude-mapping path="/user/UserLogin"/>
+            <mvc:exclude-mapping path="/role/selectAllRole"/>
+            <mvc:exclude-mapping path="/reset/**"/>
+            <mvc:exclude-mapping path="/stu/stuLogin"/>
+            <mvc:exclude-mapping path="/stu/login"/>
+            <mvc:exclude-mapping path="/stu/showStuExat"/>
+            <mvc:exclude-mapping path="/stu/outLogin"/>
+            <bean class="com.danzhao.intercapter.HandlerInterceptor_login"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/stu/showStuExat"/> &lt;!&ndash; 表示拦截路径 &ndash;&gt;
+            <mvc:mapping path="/stu/outLogin"/>
+            <bean class="com.danzhao.intercapter.HandlerInterceptor_stuLogin"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+    <!-- 配置视图解析器，方便页面返回 -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        &lt;!&ndash; 定义视图存放路径 &ndash;&gt;
+        <property name="prefix" value="/views/" />
+        &lt;!&ndash; 定义视图后缀 &ndash;&gt;
+        <property name="suffix" value=".html" />
+    </bean>-->
+
+    <!-- 两人标准配置 -->
+    <!-- 将SpringMVC不能处理的请求交给tomcat -->
+    <mvc:default-servlet-handler/>
+    <!-- 能支持SpringMVC更高级的一些功能,JSR303校验，快捷Ajax，映射动态请求 -->
+    <mvc:annotation-driven/>
+
+
+</beans>

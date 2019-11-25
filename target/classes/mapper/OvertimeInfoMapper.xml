@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.attendance.dao.OvertimeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.attendance.entity.OvertimeInfo">
+    <id column="overtime_info_overtime_id" jdbcType="BIGINT" property="overtimeId" />
+    <result column="overtime_info_employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="overtime_info_over_starttime" jdbcType="TIMESTAMP" property="overStarttime" />
+    <result column="overtime_info_over_endtime" jdbcType="TIMESTAMP" property="overEndtime" />
+    <result column="overtime_info_over_date" jdbcType="DATE" property="overDate" />
+    <result column="overtime_info_over_reason" jdbcType="VARCHAR" property="overReason" />
+    <result column="overtime_info_approve_state" jdbcType="TINYINT" property="approveState" />
+    <result column="overtime_info_approve_id" jdbcType="BIGINT" property="approveId" />
+    <result column="overtime_info_complete_state" jdbcType="TINYINT" property="completeState" />
+    <result column="overtime_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="overtime_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    overtime_info.overtime_id as overtime_info_overtime_id, overtime_info.employee_id as overtime_info_employee_id, 
+    overtime_info.over_starttime as overtime_info_over_starttime, overtime_info.over_endtime as overtime_info_over_endtime, 
+    overtime_info.over_date as overtime_info_over_date, overtime_info.over_reason as overtime_info_over_reason, 
+    overtime_info.approve_state as overtime_info_approve_state, overtime_info.approve_id as overtime_info_approve_id, 
+    overtime_info.complete_state as overtime_info_complete_state, overtime_info.create_time as overtime_info_create_time, 
+    overtime_info.update_time as overtime_info_update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from overtime_info overtime_info
+    where overtime_info.overtime_id = #{overtimeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from overtime_info
+    where overtime_id = #{overtimeId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.attendance.entity.OvertimeInfo">
+    insert into overtime_info (overtime_id, employee_id, over_starttime, 
+      over_endtime, over_date, over_reason, 
+      approve_state, approve_id, complete_state, 
+      create_time, update_time)
+    values (#{overtimeId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{overStarttime,jdbcType=TIMESTAMP}, 
+      #{overEndtime,jdbcType=TIMESTAMP}, #{overDate,jdbcType=DATE}, #{overReason,jdbcType=VARCHAR}, 
+      #{approveState,jdbcType=TINYINT}, #{approveId,jdbcType=BIGINT}, #{completeState,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.attendance.entity.OvertimeInfo">
+    insert into overtime_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="overtimeId != null">
+        overtime_id,
+      </if>
+      <if test="employeeId != null">
+        employee_id,
+      </if>
+      <if test="overStarttime != null">
+        over_starttime,
+      </if>
+      <if test="overEndtime != null">
+        over_endtime,
+      </if>
+      <if test="overDate != null">
+        over_date,
+      </if>
+      <if test="overReason != null">
+        over_reason,
+      </if>
+      <if test="approveState != null">
+        approve_state,
+      </if>
+      <if test="approveId != null">
+        approve_id,
+      </if>
+      <if test="completeState != null">
+        complete_state,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="overtimeId != null">
+        #{overtimeId,jdbcType=BIGINT},
+      </if>
+      <if test="employeeId != null">
+        #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="overStarttime != null">
+        #{overStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overEndtime != null">
+        #{overEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overDate != null">
+        #{overDate,jdbcType=DATE},
+      </if>
+      <if test="overReason != null">
+        #{overReason,jdbcType=VARCHAR},
+      </if>
+      <if test="approveState != null">
+        #{approveState,jdbcType=TINYINT},
+      </if>
+      <if test="approveId != null">
+        #{approveId,jdbcType=BIGINT},
+      </if>
+      <if test="completeState != null">
+        #{completeState,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.attendance.entity.OvertimeInfo">
+    update overtime_info
+    <set>
+      <if test="employeeId != null">
+        employee_id = #{employeeId,jdbcType=BIGINT},
+      </if>
+      <if test="overStarttime != null">
+        over_starttime = #{overStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overEndtime != null">
+        over_endtime = #{overEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overDate != null">
+        over_date = #{overDate,jdbcType=DATE},
+      </if>
+      <if test="overReason != null">
+        over_reason = #{overReason,jdbcType=VARCHAR},
+      </if>
+      <if test="approveState != null">
+        approve_state = #{approveState,jdbcType=TINYINT},
+      </if>
+      <if test="approveId != null">
+        approve_id = #{approveId,jdbcType=BIGINT},
+      </if>
+      <if test="completeState != null">
+        complete_state = #{completeState,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where overtime_id = #{overtimeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.attendance.entity.OvertimeInfo">
+    update overtime_info
+    set employee_id = #{employeeId,jdbcType=BIGINT},
+      over_starttime = #{overStarttime,jdbcType=TIMESTAMP},
+      over_endtime = #{overEndtime,jdbcType=TIMESTAMP},
+      over_date = #{overDate,jdbcType=DATE},
+      over_reason = #{overReason,jdbcType=VARCHAR},
+      approve_state = #{approveState,jdbcType=TINYINT},
+      approve_id = #{approveId,jdbcType=BIGINT},
+      complete_state = #{completeState,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where overtime_id = #{overtimeId,jdbcType=BIGINT}
+  </update>
+</mapper>
