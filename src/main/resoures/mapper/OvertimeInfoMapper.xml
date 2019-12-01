@@ -8,9 +8,9 @@
     <result column="overtime_info_over_endtime" jdbcType="TIMESTAMP" property="overEndtime" />
     <result column="overtime_info_over_date" jdbcType="DATE" property="overDate" />
     <result column="overtime_info_over_reason" jdbcType="VARCHAR" property="overReason" />
-    <result column="overtime_info_approve_state" jdbcType="TINYINT" property="approveState" />
+    <result column="overtime_info_approve_state" jdbcType="INTEGER" property="approveState" />
     <result column="overtime_info_approve_id" jdbcType="BIGINT" property="approveId" />
-    <result column="overtime_info_complete_state" jdbcType="TINYINT" property="completeState" />
+    <result column="overtime_info_complete_state" jdbcType="INTEGER" property="completeState" />
     <result column="overtime_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="overtime_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -39,7 +39,7 @@
       create_time, update_time)
     values (#{overtimeId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{overStarttime,jdbcType=TIMESTAMP}, 
       #{overEndtime,jdbcType=TIMESTAMP}, #{overDate,jdbcType=DATE}, #{overReason,jdbcType=VARCHAR}, 
-      #{approveState,jdbcType=TINYINT}, #{approveId,jdbcType=BIGINT}, #{completeState,jdbcType=TINYINT}, 
+      #{approveState,jdbcType=INTEGER}, #{approveId,jdbcType=BIGINT}, #{completeState,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.attendance.entity.OvertimeInfo">
@@ -99,13 +99,13 @@
         #{overReason,jdbcType=VARCHAR},
       </if>
       <if test="approveState != null">
-        #{approveState,jdbcType=TINYINT},
+        #{approveState,jdbcType=INTEGER},
       </if>
       <if test="approveId != null">
         #{approveId,jdbcType=BIGINT},
       </if>
       <if test="completeState != null">
-        #{completeState,jdbcType=TINYINT},
+        #{completeState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -134,13 +134,13 @@
         over_reason = #{overReason,jdbcType=VARCHAR},
       </if>
       <if test="approveState != null">
-        approve_state = #{approveState,jdbcType=TINYINT},
+        approve_state = #{approveState,jdbcType=INTEGER},
       </if>
       <if test="approveId != null">
         approve_id = #{approveId,jdbcType=BIGINT},
       </if>
       <if test="completeState != null">
-        complete_state = #{completeState,jdbcType=TINYINT},
+        complete_state = #{completeState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -158,9 +158,9 @@
       over_endtime = #{overEndtime,jdbcType=TIMESTAMP},
       over_date = #{overDate,jdbcType=DATE},
       over_reason = #{overReason,jdbcType=VARCHAR},
-      approve_state = #{approveState,jdbcType=TINYINT},
+      approve_state = #{approveState,jdbcType=INTEGER},
       approve_id = #{approveId,jdbcType=BIGINT},
-      complete_state = #{completeState,jdbcType=TINYINT},
+      complete_state = #{completeState,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where overtime_id = #{overtimeId,jdbcType=BIGINT}

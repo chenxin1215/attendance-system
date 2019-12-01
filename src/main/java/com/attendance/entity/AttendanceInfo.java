@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 每日考勤信息
- * 
- * @author
+ * attendance_info
+ * @author 
  */
 public class AttendanceInfo implements Serializable {
-
     /**
      * 出勤记录编号
      */
@@ -61,19 +59,9 @@ public class AttendanceInfo implements Serializable {
     private Boolean lateSign;
 
     /**
-     * 迟到时长（分钟）
-     */
-    private Integer latenessTime;
-
-    /**
      * 早退标识
      */
     private Boolean earlySign;
-
-    /**
-     * 早退时长（分钟）
-     */
-    private Integer earlyTime;
 
     /**
      * 累计工作时间
@@ -286,21 +274,5 @@ public class AttendanceInfo implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getLatenessTime() {
-        return latenessTime;
-    }
-
-    public void setLatenessTime(Integer latenessTime) {
-        this.latenessTime = latenessTime;
-    }
-
-    public Integer getEarlyTime() {
-        return earlyTime;
-    }
-
-    public void setEarlyTime(Integer earlyTime) {
-        this.earlyTime = earlyTime;
     }
 }

@@ -8,8 +8,8 @@
     <result column="approve_info_approve_person" jdbcType="VARCHAR" property="approvePerson" />
     <result column="approve_info_approve_time" jdbcType="TIMESTAMP" property="approveTime" />
     <result column="approve_info_approve_reason" jdbcType="VARCHAR" property="approveReason" />
-    <result column="approve_info_approve_type" jdbcType="TINYINT" property="approveType" />
-    <result column="approve_info_approve_state" jdbcType="TINYINT" property="approveState" />
+    <result column="approve_info_approve_type" jdbcType="INTEGER" property="approveType" />
+    <result column="approve_info_approve_state" jdbcType="INTEGER" property="approveState" />
     <result column="approve_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="approve_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -37,7 +37,7 @@
       update_time)
     values (#{approveId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeName,jdbcType=VARCHAR}, 
       #{approvePerson,jdbcType=VARCHAR}, #{approveTime,jdbcType=TIMESTAMP}, #{approveReason,jdbcType=VARCHAR}, 
-      #{approveType,jdbcType=TINYINT}, #{approveState,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{approveType,jdbcType=INTEGER}, #{approveState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.attendance.entity.ApproveInfo">
@@ -94,10 +94,10 @@
         #{approveReason,jdbcType=VARCHAR},
       </if>
       <if test="approveType != null">
-        #{approveType,jdbcType=TINYINT},
+        #{approveType,jdbcType=INTEGER},
       </if>
       <if test="approveState != null">
-        #{approveState,jdbcType=TINYINT},
+        #{approveState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -126,10 +126,10 @@
         approve_reason = #{approveReason,jdbcType=VARCHAR},
       </if>
       <if test="approveType != null">
-        approve_type = #{approveType,jdbcType=TINYINT},
+        approve_type = #{approveType,jdbcType=INTEGER},
       </if>
       <if test="approveState != null">
-        approve_state = #{approveState,jdbcType=TINYINT},
+        approve_state = #{approveState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -147,8 +147,8 @@
       approve_person = #{approvePerson,jdbcType=VARCHAR},
       approve_time = #{approveTime,jdbcType=TIMESTAMP},
       approve_reason = #{approveReason,jdbcType=VARCHAR},
-      approve_type = #{approveType,jdbcType=TINYINT},
-      approve_state = #{approveState,jdbcType=TINYINT},
+      approve_type = #{approveType,jdbcType=INTEGER},
+      approve_state = #{approveState,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where approve_id = #{approveId,jdbcType=BIGINT}

@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.attendance.dao.LeaveInfoMapper">
   <resultMap id="BaseResultMap" type="com.attendance.entity.LeaveInfo">
-    <id column="leave_info_record_id" jdbcType="BIGINT" property="recordId" />
+    <id column="leave_info_id" jdbcType="BIGINT" property="id" />
     <result column="leave_info_employee_id" jdbcType="BIGINT" property="employeeId" />
     <result column="leave_info_employee_sn" jdbcType="VARCHAR" property="employeeSn" />
     <result column="leave_info_leave_reason" jdbcType="VARCHAR" property="leaveReason" />
     <result column="leave_info_start_date" jdbcType="DATE" property="startDate" />
     <result column="leave_info_end_date" jdbcType="DATE" property="endDate" />
-    <result column="leave_info_approvel_state" jdbcType="TINYINT" property="approvelState" />
+    <result column="leave_info_approvel_state" jdbcType="INTEGER" property="approvelState" />
     <result column="leave_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="leave_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    leave_info.record_id as leave_info_record_id, leave_info.employee_id as leave_info_employee_id, 
+    leave_info.id as leave_info_id, leave_info.employee_id as leave_info_employee_id, 
     leave_info.employee_sn as leave_info_employee_sn, leave_info.leave_reason as leave_info_leave_reason, 
     leave_info.start_date as leave_info_start_date, leave_info.end_date as leave_info_end_date, 
     leave_info.approvel_state as leave_info_approvel_state, leave_info.create_time as leave_info_create_time, 
@@ -23,27 +23,27 @@
     select 
     <include refid="Base_Column_List" />
     from leave_info leave_info
-    where leave_info.record_id = #{recordId,jdbcType=BIGINT}
+    where leave_info.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from leave_info
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.attendance.entity.LeaveInfo">
-    insert into leave_info (record_id, employee_id, employee_sn, 
+    insert into leave_info (id, employee_id, employee_sn, 
       leave_reason, start_date, end_date, 
       approvel_state, create_time, update_time
       )
-    values (#{recordId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeSn,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeSn,jdbcType=VARCHAR}, 
       #{leaveReason,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
-      #{approvelState,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{approvelState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.attendance.entity.LeaveInfo">
     insert into leave_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        record_id,
+      <if test="id != null">
+        id,
       </if>
       <if test="employeeId != null">
         employee_id,
@@ -71,8 +71,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        #{recordId,jdbcType=BIGINT},
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="employeeId != null">
         #{employeeId,jdbcType=BIGINT},
@@ -90,7 +90,7 @@
         #{endDate,jdbcType=DATE},
       </if>
       <if test="approvelState != null">
-        #{approvelState,jdbcType=TINYINT},
+        #{approvelState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -119,7 +119,7 @@
         end_date = #{endDate,jdbcType=DATE},
       </if>
       <if test="approvelState != null">
-        approvel_state = #{approvelState,jdbcType=TINYINT},
+        approvel_state = #{approvelState,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -128,7 +128,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.attendance.entity.LeaveInfo">
     update leave_info
@@ -137,9 +137,9 @@
       leave_reason = #{leaveReason,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=DATE},
       end_date = #{endDate,jdbcType=DATE},
-      approvel_state = #{approvelState,jdbcType=TINYINT},
+      approvel_state = #{approvelState,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 考勤规则信息
+ * configure_info
  * 
  * @author
  */
@@ -32,7 +32,7 @@ public class ConfigureInfo implements Serializable {
     /**
      * 休息类型 1：单休；2：双休
      */
-    private Byte breakType;
+    private Integer breakType;
 
     /**
      * 创建时间
@@ -105,14 +105,14 @@ public class ConfigureInfo implements Serializable {
     /**
      * 获取休息类型 1：单休；2：双休
      */
-    public Byte getBreakType() {
+    public Integer getBreakType() {
         return breakType;
     }
 
     /**
      * 设置休息类型 1：单休；2：双休
      */
-    public void setBreakType(Byte breakType) {
+    public void setBreakType(Integer breakType) {
         this.breakType = breakType;
     }
 
@@ -142,5 +142,12 @@ public class ConfigureInfo implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ConfigureInfo{" + "id=" + id + ", workHours=" + workHours + ", owHours=" + owHours + ", dayWorktime="
+            + dayWorktime + ", breakType=" + breakType + ", createTime=" + createTime + ", updateTime=" + updateTime
+            + '}';
     }
 }

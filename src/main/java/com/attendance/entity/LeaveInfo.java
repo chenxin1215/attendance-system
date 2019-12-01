@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 请假信息
+ * leave_info
  * @author 
  */
 public class LeaveInfo implements Serializable {
@@ -41,7 +41,7 @@ public class LeaveInfo implements Serializable {
     /**
      * 审批状态
      */
-    private Byte approvelState;
+    private Integer approvelState;
 
     /**
      * 创建时间
@@ -142,14 +142,14 @@ public class LeaveInfo implements Serializable {
     /**
      * 获取审批状态
      */
-    public Byte getApprovelState() {
+    public Integer getApprovelState() {
         return approvelState;
     }
 
     /**
      * 设置审批状态
      */
-    public void setApprovelState(Byte approvelState) {
+    public void setApprovelState(Integer approvelState) {
         this.approvelState = approvelState;
     }
 

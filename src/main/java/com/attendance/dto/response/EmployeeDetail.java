@@ -5,7 +5,7 @@ import com.attendance.entity.EmployeeInfo;
 /**
  * 员工详细类
  */
-public class EmployeeDetail extends EmployeeInfo{
+public class EmployeeDetail extends EmployeeInfo {
 
     /**
      * 入职日期

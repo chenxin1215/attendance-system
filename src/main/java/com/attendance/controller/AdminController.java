@@ -1,19 +1,18 @@
 package com.attendance.controller;
 
+import com.attendance.dto.requset.ApprovalIdRequest;
 import com.attendance.dto.requset.ApprovalRequest;
+import com.attendance.dto.requset.QueryEmployeeListParam;
 import com.attendance.dto.response.EmployeeDetail;
 import com.attendance.entity.ApproveInfo;
 import com.attendance.entity.AttendanceInfo;
+import com.attendance.entity.ConfigureInfo;
+import com.attendance.entity.EmployeeInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.attendance.dto.requset.ApprovalIdRequest;
-import com.attendance.dto.requset.QueryEmployeeListParam;
-import com.attendance.entity.ConfigureInfo;
-import com.attendance.entity.EmployeeInfo;
 
 import java.util.ArrayList;
 import java.util.List;

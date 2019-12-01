@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.attendance.dao.AttendenceInfoMapper">
-  <resultMap id="BaseResultMap" type="com.attendance.entity.AttendenceInfo">
-    <id column="attendence_info_record_id" jdbcType="BIGINT" property="recordId" />
-    <result column="attendence_info_employee_id" jdbcType="BIGINT" property="employeeId" />
-    <result column="attendence_info_employee_name" jdbcType="VARCHAR" property="employeeName" />
-    <result column="attendence_info_onwork_time" jdbcType="TIMESTAMP" property="onworkTime" />
-    <result column="attendence_info_offwork_time" jdbcType="TIMESTAMP" property="offworkTime" />
-    <result column="attendence_info_record_year" jdbcType="INTEGER" property="recordYear" />
-    <result column="attendence_info_record_month" jdbcType="INTEGER" property="recordMonth" />
-    <result column="attendence_info_record_day" jdbcType="INTEGER" property="recordDay" />
-    <result column="attendence_info_state" jdbcType="TINYINT" property="state" />
-    <result column="attendence_info_late_sign" jdbcType="TINYINT" property="lateSign" />
-    <result column="attendence_info_early_sign" jdbcType="TINYINT" property="earlySign" />
-    <result column="attendence_info_wotk_time" jdbcType="INTEGER" property="wotkTime" />
-    <result column="attendence_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="attendence_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
+<mapper namespace="com.attendance.dao.AttendanceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.attendance.entity.AttendanceInfo">
+    <id column="attendance_info_attendance_id" jdbcType="BIGINT" property="attendanceId" />
+    <result column="attendance_info_employee_id" jdbcType="BIGINT" property="employeeId" />
+    <result column="attendance_info_employee_name" jdbcType="VARCHAR" property="employeeName" />
+    <result column="attendance_info_onwork_time" jdbcType="TIMESTAMP" property="onworkTime" />
+    <result column="attendance_info_offwork_time" jdbcType="TIMESTAMP" property="offworkTime" />
+    <result column="attendance_info_record_year" jdbcType="INTEGER" property="recordYear" />
+    <result column="attendance_info_record_month" jdbcType="INTEGER" property="recordMonth" />
+    <result column="attendance_info_record_day" jdbcType="INTEGER" property="recordDay" />
+    <result column="attendance_info_state" jdbcType="INTEGER" property="state" />
+    <result column="attendance_info_late_sign" jdbcType="BIT" property="lateSign" />
+    <result column="attendance_info_early_sign" jdbcType="BIT" property="earlySign" />
+    <result column="attendance_info_work_time" jdbcType="INTEGER" property="workTime" />
+    <result column="attendance_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="attendance_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    attendence_info.record_id as attendence_info_record_id, attendence_info.employee_id as attendence_info_employee_id, 
-    attendence_info.employee_name as attendence_info_employee_name, attendence_info.onwork_time as attendence_info_onwork_time, 
-    attendence_info.offwork_time as attendence_info_offwork_time, attendence_info.record_year as attendence_info_record_year, 
-    attendence_info.record_month as attendence_info_record_month, attendence_info.record_day as attendence_info_record_day, 
-    attendence_info.`state` as `attendence_info_state`, attendence_info.late_sign as attendence_info_late_sign, 
-    attendence_info.early_sign as attendence_info_early_sign, attendence_info.wotk_time as attendence_info_wotk_time, 
-    attendence_info.create_time as attendence_info_create_time, attendence_info.update_time as attendence_info_update_time
+    attendance_info.attendance_id as attendance_info_attendance_id, attendance_info.employee_id as attendance_info_employee_id, 
+    attendance_info.employee_name as attendance_info_employee_name, attendance_info.onwork_time as attendance_info_onwork_time, 
+    attendance_info.offwork_time as attendance_info_offwork_time, attendance_info.record_year as attendance_info_record_year, 
+    attendance_info.record_month as attendance_info_record_month, attendance_info.record_day as attendance_info_record_day, 
+    attendance_info.`state` as `attendance_info_state`, attendance_info.late_sign as attendance_info_late_sign, 
+    attendance_info.early_sign as attendance_info_early_sign, attendance_info.work_time as attendance_info_work_time, 
+    attendance_info.create_time as attendance_info_create_time, attendance_info.update_time as attendance_info_update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from attendence_info attendence_info
-    where attendence_info.record_id = #{recordId,jdbcType=BIGINT}
+    from attendance_info attendance_info
+    where attendance_info.attendance_id = #{attendanceId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from attendence_info
-    where record_id = #{recordId,jdbcType=BIGINT}
+    delete from attendance_info
+    where attendance_id = #{attendanceId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.attendance.entity.AttendenceInfo">
-    insert into attendence_info (record_id, employee_id, employee_name, 
+  <insert id="insert" parameterType="com.attendance.entity.AttendanceInfo">
+    insert into attendance_info (attendance_id, employee_id, employee_name, 
       onwork_time, offwork_time, record_year, 
       record_month, record_day, `state`, 
-      late_sign, early_sign, wotk_time, 
+      late_sign, early_sign, work_time, 
       create_time, update_time)
-    values (#{recordId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeName,jdbcType=VARCHAR}, 
+    values (#{attendanceId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeName,jdbcType=VARCHAR}, 
       #{onworkTime,jdbcType=TIMESTAMP}, #{offworkTime,jdbcType=TIMESTAMP}, #{recordYear,jdbcType=INTEGER}, 
-      #{recordMonth,jdbcType=INTEGER}, #{recordDay,jdbcType=INTEGER}, #{state,jdbcType=TINYINT}, 
-      #{lateSign,jdbcType=TINYINT}, #{earlySign,jdbcType=TINYINT}, #{wotkTime,jdbcType=INTEGER}, 
+      #{recordMonth,jdbcType=INTEGER}, #{recordDay,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{lateSign,jdbcType=BIT}, #{earlySign,jdbcType=BIT}, #{workTime,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.attendance.entity.AttendenceInfo">
-    insert into attendence_info
+  <insert id="insertSelective" parameterType="com.attendance.entity.AttendanceInfo">
+    insert into attendance_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        record_id,
+      <if test="attendanceId != null">
+        attendance_id,
       </if>
       <if test="employeeId != null">
         employee_id,
@@ -84,8 +84,8 @@
       <if test="earlySign != null">
         early_sign,
       </if>
-      <if test="wotkTime != null">
-        wotk_time,
+      <if test="workTime != null">
+        work_time,
       </if>
       <if test="createTime != null">
         create_time,
@@ -95,8 +95,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        #{recordId,jdbcType=BIGINT},
+      <if test="attendanceId != null">
+        #{attendanceId,jdbcType=BIGINT},
       </if>
       <if test="employeeId != null">
         #{employeeId,jdbcType=BIGINT},
@@ -120,16 +120,16 @@
         #{recordDay,jdbcType=INTEGER},
       </if>
       <if test="state != null">
-        #{state,jdbcType=TINYINT},
+        #{state,jdbcType=INTEGER},
       </if>
       <if test="lateSign != null">
-        #{lateSign,jdbcType=TINYINT},
+        #{lateSign,jdbcType=BIT},
       </if>
       <if test="earlySign != null">
-        #{earlySign,jdbcType=TINYINT},
+        #{earlySign,jdbcType=BIT},
       </if>
-      <if test="wotkTime != null">
-        #{wotkTime,jdbcType=INTEGER},
+      <if test="workTime != null">
+        #{workTime,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -139,8 +139,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.attendance.entity.AttendenceInfo">
-    update attendence_info
+  <update id="updateByPrimaryKeySelective" parameterType="com.attendance.entity.AttendanceInfo">
+    update attendance_info
     <set>
       <if test="employeeId != null">
         employee_id = #{employeeId,jdbcType=BIGINT},
@@ -164,16 +164,16 @@
         record_day = #{recordDay,jdbcType=INTEGER},
       </if>
       <if test="state != null">
-        `state` = #{state,jdbcType=TINYINT},
+        `state` = #{state,jdbcType=INTEGER},
       </if>
       <if test="lateSign != null">
-        late_sign = #{lateSign,jdbcType=TINYINT},
+        late_sign = #{lateSign,jdbcType=BIT},
       </if>
       <if test="earlySign != null">
-        early_sign = #{earlySign,jdbcType=TINYINT},
+        early_sign = #{earlySign,jdbcType=BIT},
       </if>
-      <if test="wotkTime != null">
-        wotk_time = #{wotkTime,jdbcType=INTEGER},
+      <if test="workTime != null">
+        work_time = #{workTime,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -182,10 +182,10 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where attendance_id = #{attendanceId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.attendance.entity.AttendenceInfo">
-    update attendence_info
+  <update id="updateByPrimaryKey" parameterType="com.attendance.entity.AttendanceInfo">
+    update attendance_info
     set employee_id = #{employeeId,jdbcType=BIGINT},
       employee_name = #{employeeName,jdbcType=VARCHAR},
       onwork_time = #{onworkTime,jdbcType=TIMESTAMP},
@@ -193,12 +193,12 @@
       record_year = #{recordYear,jdbcType=INTEGER},
       record_month = #{recordMonth,jdbcType=INTEGER},
       record_day = #{recordDay,jdbcType=INTEGER},
-      `state` = #{state,jdbcType=TINYINT},
-      late_sign = #{lateSign,jdbcType=TINYINT},
-      early_sign = #{earlySign,jdbcType=TINYINT},
-      wotk_time = #{wotkTime,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
+      late_sign = #{lateSign,jdbcType=BIT},
+      early_sign = #{earlySign,jdbcType=BIT},
+      work_time = #{workTime,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where attendance_id = #{attendanceId,jdbcType=BIGINT}
   </update>
 </mapper>

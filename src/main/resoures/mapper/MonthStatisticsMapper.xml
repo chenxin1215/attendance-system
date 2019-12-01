@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.attendance.dao.MonthStatisticsMapper">
   <resultMap id="BaseResultMap" type="com.attendance.entity.MonthStatistics">
-    <id column="month_statistics_record_id" jdbcType="BIGINT" property="recordId" />
+    <id column="month_statistics_id" jdbcType="BIGINT" property="id" />
     <result column="month_statistics_employee_id" jdbcType="BIGINT" property="employeeId" />
     <result column="month_statistics_employee_name" jdbcType="VARCHAR" property="employeeName" />
     <result column="month_statistics_work_day" jdbcType="INTEGER" property="workDay" />
     <result column="month_statistics_lateness_num" jdbcType="INTEGER" property="latenessNum" />
+    <result column="month_statistics_lateness_time" jdbcType="INTEGER" property="latenessTime" />
     <result column="month_statistics_early_num" jdbcType="INTEGER" property="earlyNum" />
+    <result column="month_statistics_early_time" jdbcType="INTEGER" property="earlyTime" />
     <result column="month_statistics_miss_num" jdbcType="INTEGER" property="missNum" />
     <result column="month_statistics_overtime_num" jdbcType="INTEGER" property="overtimeNum" />
     <result column="month_statistics_absenteeism_day" jdbcType="INTEGER" property="absenteeismDay" />
@@ -23,9 +25,10 @@
     <result column="month_statistics_update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    month_statistics.record_id as month_statistics_record_id, month_statistics.employee_id as month_statistics_employee_id, 
+    month_statistics.id as month_statistics_id, month_statistics.employee_id as month_statistics_employee_id, 
     month_statistics.employee_name as month_statistics_employee_name, month_statistics.work_day as month_statistics_work_day, 
-    month_statistics.lateness_num as month_statistics_lateness_num, month_statistics.early_num as month_statistics_early_num, 
+    month_statistics.lateness_num as month_statistics_lateness_num, month_statistics.lateness_time as month_statistics_lateness_time, 
+    month_statistics.early_num as month_statistics_early_num, month_statistics.early_time as month_statistics_early_time, 
     month_statistics.miss_num as month_statistics_miss_num, month_statistics.overtime_num as month_statistics_overtime_num, 
     month_statistics.absenteeism_day as month_statistics_absenteeism_day, month_statistics.leave_day as month_statistics_leave_day, 
     month_statistics.work_time as month_statistics_work_time, month_statistics.eave_time as month_statistics_eave_time, 
@@ -38,33 +41,35 @@
     select 
     <include refid="Base_Column_List" />
     from month_statistics month_statistics
-    where month_statistics.record_id = #{recordId,jdbcType=BIGINT}
+    where month_statistics.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from month_statistics
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.attendance.entity.MonthStatistics">
-    insert into month_statistics (record_id, employee_id, employee_name, 
-      work_day, lateness_num, early_num, 
-      miss_num, overtime_num, absenteeism_day, 
-      leave_day, work_time, eave_time, 
-      over_time, remaining_time, slack_time, 
-      `years`, `months`, create_time, 
-      update_time)
-    values (#{recordId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeName,jdbcType=VARCHAR}, 
-      #{workDay,jdbcType=INTEGER}, #{latenessNum,jdbcType=INTEGER}, #{earlyNum,jdbcType=INTEGER}, 
-      #{missNum,jdbcType=INTEGER}, #{overtimeNum,jdbcType=INTEGER}, #{absenteeismDay,jdbcType=INTEGER}, 
-      #{leaveDay,jdbcType=INTEGER}, #{workTime,jdbcType=INTEGER}, #{eaveTime,jdbcType=INTEGER}, 
-      #{overTime,jdbcType=INTEGER}, #{remainingTime,jdbcType=INTEGER}, #{slackTime,jdbcType=INTEGER}, 
-      #{years,jdbcType=INTEGER}, #{months,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+    insert into month_statistics (id, employee_id, employee_name, 
+      work_day, lateness_num, lateness_time, 
+      early_num, early_time, miss_num, 
+      overtime_num, absenteeism_day, leave_day, 
+      work_time, eave_time, over_time, 
+      remaining_time, slack_time, `years`, 
+      `months`, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeName,jdbcType=VARCHAR}, 
+      #{workDay,jdbcType=INTEGER}, #{latenessNum,jdbcType=INTEGER}, #{latenessTime,jdbcType=INTEGER}, 
+      #{earlyNum,jdbcType=INTEGER}, #{earlyTime,jdbcType=INTEGER}, #{missNum,jdbcType=INTEGER}, 
+      #{overtimeNum,jdbcType=INTEGER}, #{absenteeismDay,jdbcType=INTEGER}, #{leaveDay,jdbcType=INTEGER}, 
+      #{workTime,jdbcType=INTEGER}, #{eaveTime,jdbcType=INTEGER}, #{overTime,jdbcType=INTEGER}, 
+      #{remainingTime,jdbcType=INTEGER}, #{slackTime,jdbcType=INTEGER}, #{years,jdbcType=INTEGER}, 
+      #{months,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.attendance.entity.MonthStatistics">
     insert into month_statistics
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        record_id,
+      <if test="id != null">
+        id,
       </if>
       <if test="employeeId != null">
         employee_id,
@@ -78,8 +83,14 @@
       <if test="latenessNum != null">
         lateness_num,
       </if>
+      <if test="latenessTime != null">
+        lateness_time,
+      </if>
       <if test="earlyNum != null">
         early_num,
+      </if>
+      <if test="earlyTime != null">
+        early_time,
       </if>
       <if test="missNum != null">
         miss_num,
@@ -122,8 +133,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="recordId != null">
-        #{recordId,jdbcType=BIGINT},
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="employeeId != null">
         #{employeeId,jdbcType=BIGINT},
@@ -137,8 +148,14 @@
       <if test="latenessNum != null">
         #{latenessNum,jdbcType=INTEGER},
       </if>
+      <if test="latenessTime != null">
+        #{latenessTime,jdbcType=INTEGER},
+      </if>
       <if test="earlyNum != null">
         #{earlyNum,jdbcType=INTEGER},
+      </if>
+      <if test="earlyTime != null">
+        #{earlyTime,jdbcType=INTEGER},
       </if>
       <if test="missNum != null">
         #{missNum,jdbcType=INTEGER},
@@ -196,8 +213,14 @@
       <if test="latenessNum != null">
         lateness_num = #{latenessNum,jdbcType=INTEGER},
       </if>
+      <if test="latenessTime != null">
+        lateness_time = #{latenessTime,jdbcType=INTEGER},
+      </if>
       <if test="earlyNum != null">
         early_num = #{earlyNum,jdbcType=INTEGER},
+      </if>
+      <if test="earlyTime != null">
+        early_time = #{earlyTime,jdbcType=INTEGER},
       </if>
       <if test="missNum != null">
         miss_num = #{missNum,jdbcType=INTEGER},
@@ -239,7 +262,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.attendance.entity.MonthStatistics">
     update month_statistics
@@ -247,7 +270,9 @@
       employee_name = #{employeeName,jdbcType=VARCHAR},
       work_day = #{workDay,jdbcType=INTEGER},
       lateness_num = #{latenessNum,jdbcType=INTEGER},
+      lateness_time = #{latenessTime,jdbcType=INTEGER},
       early_num = #{earlyNum,jdbcType=INTEGER},
+      early_time = #{earlyTime,jdbcType=INTEGER},
       miss_num = #{missNum,jdbcType=INTEGER},
       overtime_num = #{overtimeNum,jdbcType=INTEGER},
       absenteeism_day = #{absenteeismDay,jdbcType=INTEGER},
@@ -261,6 +286,6 @@
       `months` = #{months,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where record_id = #{recordId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

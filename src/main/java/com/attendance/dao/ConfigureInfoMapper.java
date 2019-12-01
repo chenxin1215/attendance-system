@@ -1,6 +1,5 @@
 package com.attendance.dao;
 
-import com.attendance.dao.BaseMapper;
 import com.attendance.entity.ConfigureInfo;
 
 /**

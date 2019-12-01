@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 加班信息
+ * overtime_info
  * @author 
  */
 public class OvertimeInfo implements Serializable {
@@ -41,7 +41,7 @@ public class OvertimeInfo implements Serializable {
     /**
      * 审批状态 1：待审核；2：已审核；3：已拒绝
      */
-    private Byte approveState;
+    private Integer approveState;
 
     /**
      * 审批信息表id
@@ -51,7 +51,7 @@ public class OvertimeInfo implements Serializable {
     /**
      * 完成状态
      */
-    private Byte completeState;
+    private Integer completeState;
 
     /**
      * 创建时间
@@ -152,14 +152,14 @@ public class OvertimeInfo implements Serializable {
     /**
      * 获取审批状态 1：待审核；2：已审核；3：已拒绝
      */
-    public Byte getApproveState() {
+    public Integer getApproveState() {
         return approveState;
     }
 
     /**
      * 设置审批状态 1：待审核；2：已审核；3：已拒绝
      */
-    public void setApproveState(Byte approveState) {
+    public void setApproveState(Integer approveState) {
         this.approveState = approveState;
     }
 
@@ -180,14 +180,14 @@ public class OvertimeInfo implements Serializable {
     /**
      * 获取完成状态
      */
-    public Byte getCompleteState() {
+    public Integer getCompleteState() {
         return completeState;
     }
 
     /**
      * 设置完成状态
      */
-    public void setCompleteState(Byte completeState) {
+    public void setCompleteState(Integer completeState) {
         this.completeState = completeState;
     }
 

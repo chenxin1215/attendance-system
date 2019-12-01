@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 审批信息
- * 
- * @author
+ * approve_info
+ * @author 
  */
 public class ApproveInfo implements Serializable {
     /**
@@ -42,12 +41,12 @@ public class ApproveInfo implements Serializable {
     /**
      * 审批类型 1：请假；2：加班
      */
-    private Byte approveType;
+    private Integer approveType;
 
     /**
      * 审批状态 1：待审核；2：已审核；3：已拒绝
      */
-    private Byte approveState;
+    private Integer approveState;
 
     /**
      * 创建时间
@@ -148,28 +147,28 @@ public class ApproveInfo implements Serializable {
     /**
      * 获取审批类型 1：请假；2：加班
      */
-    public Byte getApproveType() {
+    public Integer getApproveType() {
         return approveType;
     }
 
     /**
      * 设置审批类型 1：请假；2：加班
      */
-    public void setApproveType(Byte approveType) {
+    public void setApproveType(Integer approveType) {
         this.approveType = approveType;
     }
 
     /**
      * 获取审批状态 1：待审核；2：已审核；3：已拒绝
      */
-    public Byte getApproveState() {
+    public Integer getApproveState() {
         return approveState;
     }
 
     /**
      * 设置审批状态 1：待审核；2：已审核；3：已拒绝
      */
-    public void setApproveState(Byte approveState) {
+    public void setApproveState(Integer approveState) {
         this.approveState = approveState;
     }
 

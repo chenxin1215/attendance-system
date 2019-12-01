@@ -1,6 +1,6 @@
 package com.attendance.dto.response;
 
-import com.attendance.entity.AttendenceInfo;
+import com.attendance.entity.AttendanceInfo;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -10,7 +10,7 @@ import com.attendance.entity.AttendenceInfo;
  * @create 2019/11/25
  * @since 1.0.0
  */
-public class AttendanceDetail extends AttendenceInfo {
+public class AttendanceDetail extends AttendanceInfo {
 
     /**
      * 考勤状态

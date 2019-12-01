@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 每月考勤统计
- * 
- * @author
+ * month_statistics
+ * @author 
  */
 public class MonthStatistics implements Serializable {
     /**
@@ -70,27 +69,27 @@ public class MonthStatistics implements Serializable {
     private Integer leaveDay;
 
     /**
-     * 累计工作时间（分钟）
+     * 累计工作时间
      */
     private Integer workTime;
 
     /**
-     * 累计请假时间（分钟）
+     * 累计请假时间
      */
     private Integer eaveTime;
 
     /**
-     * 累计加班时间（分钟）
+     * 累计加班时间
      */
     private Integer overTime;
 
     /**
-     * 欠缺时间（分钟）
+     * 欠缺时间
      */
     private Integer remainingTime;
 
     /**
-     * 富余时间（分钟）
+     * 富余时间
      */
     private Integer slackTime;
 
@@ -187,6 +186,20 @@ public class MonthStatistics implements Serializable {
     }
 
     /**
+     * 获取迟到时长（分钟）
+     */
+    public Integer getLatenessTime() {
+        return latenessTime;
+    }
+
+    /**
+     * 设置迟到时长（分钟）
+     */
+    public void setLatenessTime(Integer latenessTime) {
+        this.latenessTime = latenessTime;
+    }
+
+    /**
      * 获取早退次数
      */
     public Integer getEarlyNum() {
@@ -198,6 +211,20 @@ public class MonthStatistics implements Serializable {
      */
     public void setEarlyNum(Integer earlyNum) {
         this.earlyNum = earlyNum;
+    }
+
+    /**
+     * 获取早退时长（分钟）
+     */
+    public Integer getEarlyTime() {
+        return earlyTime;
+    }
+
+    /**
+     * 设置早退时长（分钟）
+     */
+    public void setEarlyTime(Integer earlyTime) {
+        this.earlyTime = earlyTime;
     }
 
     /**
@@ -380,21 +407,5 @@ public class MonthStatistics implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getLatenessTime() {
-        return latenessTime;
-    }
-
-    public void setLatenessTime(Integer latenessTime) {
-        this.latenessTime = latenessTime;
-    }
-
-    public Integer getEarlyTime() {
-        return earlyTime;
-    }
-
-    public void setEarlyTime(Integer earlyTime) {
-        this.earlyTime = earlyTime;
     }
 }

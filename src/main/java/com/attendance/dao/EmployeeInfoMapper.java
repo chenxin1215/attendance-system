@@ -9,10 +9,6 @@ import java.util.List;
  */
 public interface EmployeeInfoMapper extends BaseMapper<EmployeeInfo, Long> {
 
-    /**
-     * 查询所有员工
-     * @return
-     */
     List<EmployeeInfo> queryAllEmployeeList();
 
 }
