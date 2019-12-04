@@ -1,16 +1,16 @@
 package com.attendance.dto.requset;
 
-import java.io.Serializable;
+import com.attendance.entity.PageParam;
 
 /**
  * 〈一句话功能简述〉<br>
  * 〈员工列表查询条件〉
  *
- * @author cx
+ * @author xx
  * @create 2019/11/25
  * @since 1.0.0
  */
-public class QueryEmployeeListParam implements Serializable {
+public class QueryEmployeeListParam extends PageParam {
 
     /**
      * 关键字（工号、姓名、联系方式筛选）
@@ -18,12 +18,12 @@ public class QueryEmployeeListParam implements Serializable {
     private String keyword;
 
     /**
-     * 入职时间
+     * 入职开始时间
      */
     private String enterDateStart;
 
     /**
-     * 入职时间
+     * 入职结束时间
      */
     private String enterDateEnd;
 

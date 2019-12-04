@@ -1,5 +1,6 @@
 package com.attendance.dao;
 
+import com.attendance.dto.requset.QueryEmployeeListParam;
 import com.attendance.entity.EmployeeInfo;
 
 import java.util.List;
@@ -9,6 +10,6 @@ import java.util.List;
  */
 public interface EmployeeInfoMapper extends BaseMapper<EmployeeInfo, Long> {
 
-    List<EmployeeInfo> queryAllEmployeeList();
+    List<EmployeeInfo> queryEmployeeListByParam(QueryEmployeeListParam param);
 
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 // localhost:8080/attendance-system/employee/queryAllEmployeeList
 
-
 /**
  * 〈一句话功能简述〉<br>
  * 〈员工控制器-通用〉
@@ -32,14 +31,18 @@ public class EmployeeController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "getEmployeeById", method = RequestMethod.POST)
+    @RequestMapping(value = "queryEmployeeDetailById", method = RequestMethod.POST)
     @ResponseBody
     public EmployeeDetail queryEmployeeDetailById(@RequestBody EmployeeIdRequest request) {
+        System.out.println("### queryEmployeeDetailById start ###");
 
-        EmployeeDetail employeeDetail = new EmployeeDetail();
+        EmployeeDetail employeeDetail = employeeService.getEmployeeById(request.getEmployeeId());
 
+        System.out.println("### queryEmployeeDetailById end ###");
         return employeeDetail;
     }
+
+
 
     /**
      * 修改自身基本信息

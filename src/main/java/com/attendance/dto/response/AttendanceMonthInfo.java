@@ -17,11 +17,21 @@ public class AttendanceMonthInfo extends MonthStatistics {
      */
     private Float averageWorkingHours;
 
+    private String position;
+
     public Float getAverageWorkingHours() {
         return averageWorkingHours;
     }
 
     public void setAverageWorkingHours(Float averageWorkingHours) {
         this.averageWorkingHours = averageWorkingHours;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

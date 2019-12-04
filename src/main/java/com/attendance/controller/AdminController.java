@@ -8,6 +8,8 @@ import com.attendance.entity.ApproveInfo;
 import com.attendance.entity.AttendanceInfo;
 import com.attendance.entity.ConfigureInfo;
 import com.attendance.entity.EmployeeInfo;
+import com.attendance.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,9 @@ import java.util.List;
 @RequestMapping("admin")
 @Controller
 public class AdminController {
+
+    @Autowired
+    private EmployeeService employeeService;
 
     /**
      * 添加员工
@@ -59,7 +64,8 @@ public class AdminController {
     @RequestMapping(value = "queryEmployeeListByParam", method = RequestMethod.POST)
     @ResponseBody
     public List<EmployeeDetail> queryEmployeeListByParam(@RequestBody QueryEmployeeListParam request) {
-        List<EmployeeDetail> resultList = new ArrayList<EmployeeDetail>();
+
+        List<EmployeeDetail> resultList = employeeService.queryEmployeeListByParam(request);
 
         return resultList;
     }

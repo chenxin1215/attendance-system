@@ -18,8 +18,10 @@ public enum AttendanceStateEnum {
     LACK_OF_CARD(2),
     /** 旷工 */
     ABSENTEEISM(3),
-    /** 休假 */
-    VACATION(4);
+    /** 请假 */
+    VACATION(4),
+    /** 加班 */
+    OVERTIME(5);
 
     private int value;
 
@@ -29,7 +31,8 @@ public enum AttendanceStateEnum {
         TEXT_MAP.put(AttendanceStateEnum.NORMAL, "正常");
         TEXT_MAP.put(AttendanceStateEnum.LACK_OF_CARD, "缺卡");
         TEXT_MAP.put(AttendanceStateEnum.ABSENTEEISM, "旷工");
-        TEXT_MAP.put(AttendanceStateEnum.VACATION, "旷工");
+        TEXT_MAP.put(AttendanceStateEnum.VACATION, "请假");
+        TEXT_MAP.put(AttendanceStateEnum.VACATION, "加班");
     }
 
     AttendanceStateEnum(int value) {

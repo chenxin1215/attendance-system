@@ -1,12 +1,7 @@
 package com.attendance.serviceImpl;
 
-import java.util.List;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.attendance.dao.EmployeeInfoMapper;
+import com.attendance.dto.requset.QueryEmployeeListParam;
 import com.attendance.dto.response.EmployeeDetail;
 import com.attendance.entity.EmployeeInfo;
 import com.attendance.enums.EmployeeStateEnum;
@@ -14,6 +9,12 @@ import com.attendance.enums.EmployeeTypeEnum;
 import com.attendance.enums.PositionTypeEnum;
 import com.attendance.service.EmployeeService;
 import com.attendance.utils.DateUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -21,11 +22,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeInfoMapper employeeInfoMapper;
 
-    public List<EmployeeInfo> queryAllEmployeeList() {
+    public List<EmployeeDetail> queryEmployeeListByParam(QueryEmployeeListParam param) {
 
-        List<EmployeeInfo> employeeInfos = employeeInfoMapper.queryAllEmployeeList();
+        // 定义返回数据对象
+        List<EmployeeDetail> result = new ArrayList<EmployeeDetail>();
 
-        return employeeInfos;
+        // 获取员工基本信息
+        List<EmployeeInfo> employeeInfoList = employeeInfoMapper.queryEmployeeListByParam(param);
+
+        // 组装详细信息
+        for (EmployeeInfo employeeInfo : employeeInfoList) {
+            EmployeeDetail detail = new EmployeeDetail();
+            BeanUtils.copyProperties(employeeInfo, detail);
+            detail.setEnterDateStr(DateUtil.dateToString(employeeInfo.getEnterDate(), DateUtil.DATE_BASE));
+            detail.setPositionStr(PositionTypeEnum.parse(employeeInfo.getPosition()).toString());
+            detail.setEmployeeTypeStr(EmployeeTypeEnum.parse(employeeInfo.getEmployeeType()).toString());
+            detail.setStateStr(EmployeeStateEnum.parse(employeeInfo.getState()).toString());
+
+            result.add(detail);
+        }
+
+        return result;
     }
 
     public EmployeeDetail getEmployeeById(Long employeeId) {
