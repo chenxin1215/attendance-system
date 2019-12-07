@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * approve_info
- * @author 
+ * 
+ * @author
  */
 public class ApproveInfo implements Serializable {
     /**
@@ -34,7 +35,7 @@ public class ApproveInfo implements Serializable {
     private Date approveTime;
 
     /**
-     * 审批理由
+     * 发起审批理由
      */
     private String approveReason;
 
@@ -42,6 +43,16 @@ public class ApproveInfo implements Serializable {
      * 审批类型 1：请假；2：加班
      */
     private Integer approveType;
+
+    /**
+     * 开始时间
+     */
+    private Date startDate;
+
+    /**
+     * 结束时间
+     */
+    private Date endDate;
 
     /**
      * 审批状态 1：待审核；2：已审核；3：已拒绝
@@ -198,5 +209,21 @@ public class ApproveInfo implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

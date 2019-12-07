@@ -1,6 +1,6 @@
 package com.attendance.controller;
 
-import com.attendance.dto.requset.EmployeeIdRequest;
+import com.attendance.dto.requset.employee.EmployeeIdRequest;
 import com.attendance.dto.requset.UpdatePwdRequest;
 import com.attendance.dto.requset.UpdateSelfInfoRequest;
 import com.attendance.dto.response.EmployeeDetail;

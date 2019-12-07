@@ -1,7 +1,7 @@
 package com.attendance.controller;
 
-import com.attendance.dto.requset.ApprovalRequest;
-import com.attendance.dto.requset.EmployeeIdRequest;
+import com.attendance.dto.requset.approve.ApprovalRequest;
+import com.attendance.dto.requset.employee.EmployeeIdRequest;
 import com.attendance.dto.requset.QueryAttendanceInfoParam;
 import com.attendance.dto.response.AttendanceDetail;
 import com.attendance.dto.response.AttendanceMonthInfo;

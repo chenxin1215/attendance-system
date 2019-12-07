@@ -1,156 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.attendance.dao.ApproveInfoMapper">
-  <resultMap id="BaseResultMap" type="com.attendance.entity.ApproveInfo">
-    <id column="approve_info_approve_id" jdbcType="BIGINT" property="approveId" />
-    <result column="approve_info_employee_id" jdbcType="BIGINT" property="employeeId" />
-    <result column="approve_info_employee_name" jdbcType="VARCHAR" property="employeeName" />
-    <result column="approve_info_approve_person" jdbcType="VARCHAR" property="approvePerson" />
-    <result column="approve_info_approve_time" jdbcType="TIMESTAMP" property="approveTime" />
-    <result column="approve_info_approve_reason" jdbcType="VARCHAR" property="approveReason" />
-    <result column="approve_info_approve_type" jdbcType="INTEGER" property="approveType" />
-    <result column="approve_info_approve_state" jdbcType="INTEGER" property="approveState" />
-    <result column="approve_info_create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="approve_info_update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.attendance.entity.ApproveInfo">
+        <id column="approve_info_approve_id" jdbcType="BIGINT" property="approveId"/>
+        <result column="approve_info_employee_id" jdbcType="BIGINT" property="employeeId"/>
+        <result column="approve_info_employee_name" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="approve_info_approve_person" jdbcType="VARCHAR" property="approvePerson"/>
+        <result column="approve_info_approve_time" jdbcType="TIMESTAMP" property="approveTime"/>
+        <result column="approve_info_approve_reason" jdbcType="VARCHAR" property="approveReason"/>
+        <result column="approve_info_approve_type" jdbcType="INTEGER" property="approveType"/>
+        <result column="approve_info_start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="approve_info_end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="approve_info_approve_state" jdbcType="INTEGER" property="approveState"/>
+        <result column="approve_info_create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="approve_info_update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     approve_info.approve_id as approve_info_approve_id, approve_info.employee_id as approve_info_employee_id, 
     approve_info.employee_name as approve_info_employee_name, approve_info.approve_person as approve_info_approve_person, 
     approve_info.approve_time as approve_info_approve_time, approve_info.approve_reason as approve_info_approve_reason, 
     approve_info.approve_type as approve_info_approve_type, approve_info.approve_state as approve_info_approve_state, 
-    approve_info.create_time as approve_info_create_time, approve_info.update_time as approve_info_update_time
+    approve_info.create_time as approve_info_create_time, approve_info.update_time as approve_info_update_time,
+    approve_info.start_date as approve_info_start_date, approve_info.end_date as approve_info_end_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from approve_info approve_info
-    where approve_info.approve_id = #{approveId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+
+    <sql id="Page_Query">
+        <if test="page != null and pageSize != null">
+            limit #{offset}, #{pageSize}
+        </if>
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from approve_info approve_info
+        where approve_info.approve_id = #{approveId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from approve_info
     where approve_id = #{approveId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.attendance.entity.ApproveInfo">
+    <insert id="insert" parameterType="com.attendance.entity.ApproveInfo">
     insert into approve_info (approve_id, employee_id, employee_name, 
       approve_person, approve_time, approve_reason, 
-      approve_type, approve_state, create_time, 
+      approve_type, start_dete, end_date, approve_state, create_time,
       update_time)
     values (#{approveId,jdbcType=BIGINT}, #{employeeId,jdbcType=BIGINT}, #{employeeName,jdbcType=VARCHAR}, 
       #{approvePerson,jdbcType=VARCHAR}, #{approveTime,jdbcType=TIMESTAMP}, #{approveReason,jdbcType=VARCHAR}, 
-      #{approveType,jdbcType=INTEGER}, #{approveState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{approveType,jdbcType=INTEGER}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP},#{approveState,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.attendance.entity.ApproveInfo">
-    insert into approve_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="approveId != null">
-        approve_id,
-      </if>
-      <if test="employeeId != null">
-        employee_id,
-      </if>
-      <if test="employeeName != null">
-        employee_name,
-      </if>
-      <if test="approvePerson != null">
-        approve_person,
-      </if>
-      <if test="approveTime != null">
-        approve_time,
-      </if>
-      <if test="approveReason != null">
-        approve_reason,
-      </if>
-      <if test="approveType != null">
-        approve_type,
-      </if>
-      <if test="approveState != null">
-        approve_state,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="approveId != null">
-        #{approveId,jdbcType=BIGINT},
-      </if>
-      <if test="employeeId != null">
-        #{employeeId,jdbcType=BIGINT},
-      </if>
-      <if test="employeeName != null">
-        #{employeeName,jdbcType=VARCHAR},
-      </if>
-      <if test="approvePerson != null">
-        #{approvePerson,jdbcType=VARCHAR},
-      </if>
-      <if test="approveTime != null">
-        #{approveTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="approveReason != null">
-        #{approveReason,jdbcType=VARCHAR},
-      </if>
-      <if test="approveType != null">
-        #{approveType,jdbcType=INTEGER},
-      </if>
-      <if test="approveState != null">
-        #{approveState,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.attendance.entity.ApproveInfo">
-    update approve_info
-    <set>
-      <if test="employeeId != null">
-        employee_id = #{employeeId,jdbcType=BIGINT},
-      </if>
-      <if test="employeeName != null">
-        employee_name = #{employeeName,jdbcType=VARCHAR},
-      </if>
-      <if test="approvePerson != null">
-        approve_person = #{approvePerson,jdbcType=VARCHAR},
-      </if>
-      <if test="approveTime != null">
-        approve_time = #{approveTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="approveReason != null">
-        approve_reason = #{approveReason,jdbcType=VARCHAR},
-      </if>
-      <if test="approveType != null">
-        approve_type = #{approveType,jdbcType=INTEGER},
-      </if>
-      <if test="approveState != null">
-        approve_state = #{approveState,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where approve_id = #{approveId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.attendance.entity.ApproveInfo">
-    update approve_info
-    set employee_id = #{employeeId,jdbcType=BIGINT},
-      employee_name = #{employeeName,jdbcType=VARCHAR},
-      approve_person = #{approvePerson,jdbcType=VARCHAR},
-      approve_time = #{approveTime,jdbcType=TIMESTAMP},
-      approve_reason = #{approveReason,jdbcType=VARCHAR},
-      approve_type = #{approveType,jdbcType=INTEGER},
-      approve_state = #{approveState,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where approve_id = #{approveId,jdbcType=BIGINT}
-  </update>
+    <insert id="insertSelective" parameterType="com.attendance.entity.ApproveInfo">
+        insert into approve_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="approveId != null">
+                approve_id,
+            </if>
+            <if test="employeeId != null">
+                employee_id,
+            </if>
+            <if test="employeeName != null">
+                employee_name,
+            </if>
+            <if test="approvePerson != null">
+                approve_person,
+            </if>
+            <if test="approveTime != null">
+                approve_time,
+            </if>
+            <if test="approveReason != null">
+                approve_reason,
+            </if>
+            <if test="approveType != null">
+                approve_type,
+            </if>
+            <if test="startDate != null">
+                start_date,
+            </if>
+            <if test="endDate != null">
+                end_date,
+            </if>
+            <if test="approveState != null">
+                approve_state,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="approveId != null">
+                #{approveId,jdbcType=BIGINT},
+            </if>
+            <if test="employeeId != null">
+                #{employeeId,jdbcType=BIGINT},
+            </if>
+            <if test="employeeName != null">
+                #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="approvePerson != null">
+                #{approvePerson,jdbcType=VARCHAR},
+            </if>
+            <if test="approveTime != null">
+                #{approveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approveReason != null">
+                #{approveReason,jdbcType=VARCHAR},
+            </if>
+            <if test="approveType != null">
+                #{approveType,jdbcType=INTEGER},
+            </if>
+            <if test="startDate != null">
+                #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approveState != null">
+                #{approveState,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.attendance.entity.ApproveInfo">
+        update approve_info
+        <set>
+            <if test="employeeId != null">
+                employee_id = #{employeeId,jdbcType=BIGINT},
+            </if>
+            <if test="employeeName != null">
+                employee_name = #{employeeName,jdbcType=VARCHAR},
+            </if>
+            <if test="approvePerson != null">
+                approve_person = #{approvePerson,jdbcType=VARCHAR},
+            </if>
+            <if test="approveTime != null">
+                approve_time = #{approveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approveReason != null">
+                approve_reason = #{approveReason,jdbcType=VARCHAR},
+            </if>
+            <if test="approveType != null">
+                approve_type = #{approveType,jdbcType=INTEGER},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="approveState != null">
+                approve_state = #{approveState,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where approve_id = #{approveId,jdbcType=BIGINT}
+    </update>
+
+    <select id="queryApprovalListByParam" resultMap="BaseResultMap">
+        select * from approve_info
+        <where>
+            <if test="approvalUserId != null">
+                and employee_id = #{approvalUserId}
+            </if>
+            <if test="approvalType != null">
+                and approve_type = #{approvalType}
+            </if>
+            <if test="startDate != null and endDate != null">
+                and (
+                create_time <![CDATA[>=]]> #{startDate}
+                and create_time <![CDATA[<=]]> #{endDate}
+                )
+            </if>
+        </where>
+        order by create_time desc
+        <include refid="Page_Query"></include>
+    </select>
+
 </mapper>

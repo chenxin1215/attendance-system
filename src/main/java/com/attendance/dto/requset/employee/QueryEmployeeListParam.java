@@ -1,6 +1,8 @@
-package com.attendance.dto.requset;
+package com.attendance.dto.requset.employee;
 
 import com.attendance.entity.PageParam;
+
+import java.util.Date;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -20,12 +22,16 @@ public class QueryEmployeeListParam extends PageParam {
     /**
      * 入职开始时间
      */
-    private String enterDateStart;
+    private String enterDateStartStr;
+
+    private Date enterDateStart;
 
     /**
      * 入职结束时间
      */
-    private String enterDateEnd;
+    private String enterDateEndStr;
+
+    private Date enterDateEnd;
 
     /**
      * 职位
@@ -40,19 +46,35 @@ public class QueryEmployeeListParam extends PageParam {
         this.keyword = keyword;
     }
 
-    public String getEnterDateStart() {
+    public String getEnterDateStartStr() {
+        return enterDateStartStr;
+    }
+
+    public void setEnterDateStartStr(String enterDateStartStr) {
+        this.enterDateStartStr = enterDateStartStr;
+    }
+
+    public Date getEnterDateStart() {
         return enterDateStart;
     }
 
-    public void setEnterDateStart(String enterDateStart) {
+    public void setEnterDateStart(Date enterDateStart) {
         this.enterDateStart = enterDateStart;
     }
 
-    public String getEnterDateEnd() {
+    public String getEnterDateEndStr() {
+        return enterDateEndStr;
+    }
+
+    public void setEnterDateEndStr(String enterDateEndStr) {
+        this.enterDateEndStr = enterDateEndStr;
+    }
+
+    public Date getEnterDateEnd() {
         return enterDateEnd;
     }
 
-    public void setEnterDateEnd(String enterDateEnd) {
+    public void setEnterDateEnd(Date enterDateEnd) {
         this.enterDateEnd = enterDateEnd;
     }
 

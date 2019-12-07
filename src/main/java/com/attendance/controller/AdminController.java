@@ -1,14 +1,22 @@
 package com.attendance.controller;
 
-import com.attendance.dto.requset.ApprovalIdRequest;
-import com.attendance.dto.requset.ApprovalRequest;
-import com.attendance.dto.requset.QueryEmployeeListParam;
+import com.attendance.dto.requset.approve.ApprovalIdRequest;
+import com.attendance.dto.requset.approve.ApprovalRequest;
+import com.attendance.dto.requset.approve.QueryApproveParam;
+import com.attendance.dto.requset.employee.InsertEmployeeRequest;
+import com.attendance.dto.requset.employee.QueryEmployeeListParam;
+import com.attendance.dto.response.AttendanceMonthInfo;
 import com.attendance.dto.response.EmployeeDetail;
+import com.attendance.dto.response.approve.ApproveInfoData;
 import com.attendance.entity.ApproveInfo;
 import com.attendance.entity.AttendanceInfo;
 import com.attendance.entity.ConfigureInfo;
 import com.attendance.entity.EmployeeInfo;
+import com.attendance.enums.ApproveStateEnum;
+import com.attendance.service.ApproveService;
 import com.attendance.service.EmployeeService;
+import com.attendance.utils.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +41,9 @@ public class AdminController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private ApproveService approveService;
+
     /**
      * 添加员工
      * 
@@ -41,8 +51,12 @@ public class AdminController {
      */
     @RequestMapping(value = "addEmployee", method = RequestMethod.POST)
     @ResponseBody
-    public void addEmployee(@RequestBody EmployeeInfo request) {
+    public void addEmployee(@RequestBody InsertEmployeeRequest request) {
+        System.out.println("#### addEmployee start request = " + request.toString());
 
+        employeeService.insertEmployee(request);
+
+        System.out.println("#### addEmployee end");
     }
 
     /**
@@ -53,7 +67,7 @@ public class AdminController {
     @RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
     @ResponseBody
     public void updateEmployee(@RequestBody EmployeeInfo request) {
-
+        employeeService.updateByPrimaryKey(request);
     }
 
     /**
@@ -78,7 +92,10 @@ public class AdminController {
     @RequestMapping(value = "passApproval", method = RequestMethod.POST)
     @ResponseBody
     public void passApproval(@RequestBody ApprovalIdRequest request) {
-
+        ApproveInfo update = new ApproveInfo();
+        update.setApproveId(request.getApprovalId());
+        update.setApproveState(ApproveStateEnum.CHECKED.value());
+        approveService.updateApproveState(update);
     }
 
     /**
@@ -89,7 +106,10 @@ public class AdminController {
     @RequestMapping(value = "refusedApproval", method = RequestMethod.POST)
     @ResponseBody
     public void refusedApproval(@RequestBody ApprovalIdRequest request) {
-
+        ApproveInfo update = new ApproveInfo();
+        update.setApproveId(request.getApprovalId());
+        update.setApproveState(ApproveStateEnum.REFUSED.value());
+        approveService.updateApproveState(update);
     }
 
     /**
@@ -97,13 +117,22 @@ public class AdminController {
      *
      * @param request
      */
-    @RequestMapping(value = "queryEmployeeListByParam", method = RequestMethod.POST)
+    @RequestMapping(value = "queryApprovalListByParam", method = RequestMethod.POST)
     @ResponseBody
-    public List<ApproveInfo> queryApprovalListByParam(@RequestBody ApprovalRequest request) {
+    public List<ApproveInfoData> queryApprovalListByParam(@RequestBody ApprovalRequest request) {
 
-        List<ApproveInfo> resultList = new ArrayList<ApproveInfo>();
+        QueryApproveParam param = new QueryApproveParam();
+        BeanUtils.copyProperties(request, param);
+        if (request.getStartDateStr() != null) {
+            param.setStartDate(
+                DateUtil.getInitStart(DateUtil.stringToDate(request.getStartDateStr(), DateUtil.DATE_BASE)));
+        }
+        if (request.getEndDateStr() != null) {
+            param.setEndDate(DateUtil.getInitEnd(DateUtil.stringToDate(request.getEndDateStr(), DateUtil.DATE_BASE)));
+        }
+        List<ApproveInfoData> approveInfoData = approveService.queryApprovalListByParam(param);
 
-        return resultList;
+        return approveInfoData;
     }
 
     /**
@@ -114,6 +143,8 @@ public class AdminController {
     @RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
     @ResponseBody
     public void updateAttendanceInfo(@RequestBody AttendanceInfo request) {
+
+        att
 
     }
 

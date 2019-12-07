@@ -1,4 +1,4 @@
-package com.attendance.dto.requset;
+package com.attendance.dto.requset.approve;
 
 import java.io.Serializable;
 
@@ -25,12 +25,12 @@ public class ApprovalRequest implements Serializable {
     /**
      * 开始时间
      */
-    private String startDate;
+    private String startDateStr;
 
     /**
      * 结束时间
      */
-    private String endDate;
+    private String endDateStr;
 
     /**
      * 发起审批理由
@@ -53,20 +53,20 @@ public class ApprovalRequest implements Serializable {
         this.approvalType = approvalType;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStartDateStr() {
+        return startDateStr;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartDateStr(String startDateStr) {
+        this.startDateStr = startDateStr;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getEndDateStr() {
+        return endDateStr;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setEndDateStr(String endDateStr) {
+        this.endDateStr = endDateStr;
     }
 
     public String getApprovalContent() {

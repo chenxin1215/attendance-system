@@ -1,7 +1,8 @@
 package com.attendance.serviceImpl;
 
 import com.attendance.dao.EmployeeInfoMapper;
-import com.attendance.dto.requset.QueryEmployeeListParam;
+import com.attendance.dto.requset.employee.QueryEmployeeListParam;
+import com.attendance.dto.requset.employee.InsertEmployeeRequest;
 import com.attendance.dto.response.EmployeeDetail;
 import com.attendance.entity.EmployeeInfo;
 import com.attendance.enums.EmployeeStateEnum;
@@ -9,6 +10,7 @@ import com.attendance.enums.EmployeeTypeEnum;
 import com.attendance.enums.PositionTypeEnum;
 import com.attendance.service.EmployeeService;
 import com.attendance.utils.DateUtil;
+import com.attendance.utils.SnUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeInfoMapper employeeInfoMapper;
 
     public List<EmployeeDetail> queryEmployeeListByParam(QueryEmployeeListParam param) {
+
+        // 将String类型的时间转为Date
+        param.setEnterDateStart(param.getEnterDateStartStr() == null ? null
+            : DateUtil.getInitStart(DateUtil.stringToDate(param.getEnterDateStartStr(), DateUtil.DATETIME_BASE)));
+        param.setEnterDateEnd(param.getEnterDateEndStr() == null ? null
+            : DateUtil.getInitEnd(DateUtil.stringToDate(param.getEnterDateEndStr(), DateUtil.DATETIME_BASE)));
 
         // 定义返回数据对象
         List<EmployeeDetail> result = new ArrayList<EmployeeDetail>();
@@ -66,7 +74,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDetail;
     }
 
-    public Long insertEmployee(EmployeeInfo employeeInfo) {
+    public Long insertEmployee(InsertEmployeeRequest request) {
+        EmployeeInfo employeeInfo = new EmployeeInfo();
+        BeanUtils.copyProperties(request, employeeInfo);
+        employeeInfo.setEmployeeSn(SnUtil.createEmployeeSn(this.getNewEmployeeSn()));
+        employeeInfo.setPassword("123456");
+        employeeInfo.setState(EmployeeStateEnum.ONJOB.value());
         employeeInfoMapper.insert(employeeInfo);
         return employeeInfo.getEmployeeId();
     }
@@ -85,5 +98,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeInfo.setEmployeeId(employeeId);
         employeeInfo.setState(EmployeeStateEnum.QUITJOB.value());
         employeeInfoMapper.updateByPrimaryKeySelective(employeeInfo);
+    }
+
+    public Long getNewEmployeeSn() {
+        return employeeInfoMapper.getNewEmployeeSn();
     }
 }

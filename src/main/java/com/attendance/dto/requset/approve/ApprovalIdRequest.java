@@ -1,4 +1,4 @@
-package com.attendance.dto.requset;
+package com.attendance.dto.requset.approve;
 
 import java.io.Serializable;
 

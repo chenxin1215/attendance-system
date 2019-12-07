@@ -1,6 +1,7 @@
 package com.attendance.service;
 
-import com.attendance.dto.requset.QueryEmployeeListParam;
+import com.attendance.dto.requset.employee.QueryEmployeeListParam;
+import com.attendance.dto.requset.employee.InsertEmployeeRequest;
 import com.attendance.dto.response.EmployeeDetail;
 import com.attendance.entity.EmployeeInfo;
 
@@ -17,7 +18,7 @@ public interface EmployeeService {
 
     EmployeeDetail getEmployeeById(Long employeeId);
 
-    Long insertEmployee(EmployeeInfo employeeInfo);
+    Long insertEmployee(InsertEmployeeRequest request);
 
     void updateByPrimaryKey(EmployeeInfo employeeInfo);
 
@@ -25,5 +26,7 @@ public interface EmployeeService {
      * 开除员工
      */
     void outEmployee(Long employeeId);
+
+    Long getNewEmployeeSn();
 
 }

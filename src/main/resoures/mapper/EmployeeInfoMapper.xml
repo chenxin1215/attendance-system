@@ -196,4 +196,9 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where employee_id = #{employeeId,jdbcType=BIGINT}
   </update>
+
+    <select id="getNewEmployeeSn" resultType="java.lang.Long">
+        select employee_id from employee_info order by employee_id desc limit 1
+    </select>
+
 </mapper>
