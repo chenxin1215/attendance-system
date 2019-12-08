@@ -5,15 +5,15 @@ import com.attendance.dto.requset.approve.ApprovalRequest;
 import com.attendance.dto.requset.approve.QueryApproveParam;
 import com.attendance.dto.requset.employee.InsertEmployeeRequest;
 import com.attendance.dto.requset.employee.QueryEmployeeListParam;
-import com.attendance.dto.response.AttendanceMonthInfo;
+import com.attendance.dto.response.AttendanceDetail;
 import com.attendance.dto.response.EmployeeDetail;
 import com.attendance.dto.response.approve.ApproveInfoData;
-import com.attendance.entity.ApproveInfo;
 import com.attendance.entity.AttendanceInfo;
 import com.attendance.entity.ConfigureInfo;
 import com.attendance.entity.EmployeeInfo;
-import com.attendance.enums.ApproveStateEnum;
 import com.attendance.service.ApproveService;
+import com.attendance.service.AttendanceService;
+import com.attendance.service.ConfigureService;
 import com.attendance.service.EmployeeService;
 import com.attendance.utils.DateUtil;
 import org.springframework.beans.BeanUtils;
@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +45,12 @@ public class AdminController {
 
     @Autowired
     private ApproveService approveService;
+
+    @Autowired
+    private AttendanceService attendanceService;
+
+    @Autowired
+    private ConfigureService configureService;
 
     /**
      * 添加员工
@@ -67,7 +75,7 @@ public class AdminController {
     @RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
     @ResponseBody
     public void updateEmployee(@RequestBody EmployeeInfo request) {
-        employeeService.updateByPrimaryKey(request);
+        employeeService.updateById(request);
     }
 
     /**
@@ -78,9 +86,7 @@ public class AdminController {
     @RequestMapping(value = "queryEmployeeListByParam", method = RequestMethod.POST)
     @ResponseBody
     public List<EmployeeDetail> queryEmployeeListByParam(@RequestBody QueryEmployeeListParam request) {
-
         List<EmployeeDetail> resultList = employeeService.queryEmployeeListByParam(request);
-
         return resultList;
     }
 
@@ -91,11 +97,9 @@ public class AdminController {
      */
     @RequestMapping(value = "passApproval", method = RequestMethod.POST)
     @ResponseBody
-    public void passApproval(@RequestBody ApprovalIdRequest request) {
-        ApproveInfo update = new ApproveInfo();
-        update.setApproveId(request.getApprovalId());
-        update.setApproveState(ApproveStateEnum.CHECKED.value());
-        approveService.updateApproveState(update);
+    public void passApproval(@RequestBody ApprovalIdRequest idRequest, HttpServletRequest request) {
+        EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
+        approveService.passApproval(idRequest.getApprovalId(), user.getEmployeeId());
     }
 
     /**
@@ -105,11 +109,10 @@ public class AdminController {
      */
     @RequestMapping(value = "refusedApproval", method = RequestMethod.POST)
     @ResponseBody
-    public void refusedApproval(@RequestBody ApprovalIdRequest request) {
-        ApproveInfo update = new ApproveInfo();
-        update.setApproveId(request.getApprovalId());
-        update.setApproveState(ApproveStateEnum.REFUSED.value());
-        approveService.updateApproveState(update);
+    public void refusedApproval(@RequestBody ApprovalIdRequest idRequest, HttpServletRequest request) {
+        EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
+        approveService.refusedApproval(idRequest.getApprovalId(), user.getEmployeeId());
+
     }
 
     /**
@@ -136,6 +139,17 @@ public class AdminController {
     }
 
     /**
+     * 查询考勤信息列表（月）
+     * 
+     * @return
+     */
+    public List<AttendanceDetail> queryAttendanceMonthByParam() {
+        List<AttendanceDetail> dataList = new ArrayList<AttendanceDetail>();
+
+        return dataList;
+    }
+
+    /**
      * 修改考勤信息
      *
      * @param request
@@ -143,9 +157,7 @@ public class AdminController {
     @RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
     @ResponseBody
     public void updateAttendanceInfo(@RequestBody AttendanceInfo request) {
-
-        att
-
+        attendanceService.updateAttendance(request);
     }
 
     /**
@@ -156,7 +168,7 @@ public class AdminController {
     @RequestMapping(value = "updateConfigureInfo", method = RequestMethod.POST)
     @ResponseBody
     public void updateConfigureInfo(@RequestBody ConfigureInfo request) {
-
+        configureService.updateConfig(request);
     }
 
 }

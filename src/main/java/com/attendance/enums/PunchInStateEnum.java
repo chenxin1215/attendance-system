@@ -10,31 +10,31 @@ import java.util.EnumMap;
  * @create 2019/11/25
  * @since 1.0.0
  */
-public enum AttendanceStateEnum {
+public enum PunchInStateEnum {
 
     /** 正常 */
     NORMAL(1),
-    /** 异常 */
-    EXCEPTION(2),
-    /** 旷工 */
-    ABSENTEEISM(3);
+    /** 迟到 */
+    LATE(2),
+    /** 缺卡 */
+    LESS(3);
 
     private int value;
 
-    private static final EnumMap<AttendanceStateEnum, String> TEXT_MAP =
-        new EnumMap<AttendanceStateEnum, String>(AttendanceStateEnum.class);
+    private static final EnumMap<PunchInStateEnum, String> TEXT_MAP =
+        new EnumMap<PunchInStateEnum, String>(PunchInStateEnum.class);
     static {
-        TEXT_MAP.put(AttendanceStateEnum.NORMAL, "正常");
-        TEXT_MAP.put(AttendanceStateEnum.EXCEPTION, "异常");
-        TEXT_MAP.put(AttendanceStateEnum.ABSENTEEISM, "旷工");
+        TEXT_MAP.put(PunchInStateEnum.NORMAL, "正常");
+        TEXT_MAP.put(PunchInStateEnum.LATE, "迟到");
+        TEXT_MAP.put(PunchInStateEnum.LESS, "缺卡");
     }
 
-    AttendanceStateEnum(int value) {
+    PunchInStateEnum(int value) {
         this.value = value;
     }
 
-    public static AttendanceStateEnum parse(int value) {
-        for (AttendanceStateEnum outboundType : AttendanceStateEnum.values()) {
+    public static PunchInStateEnum parse(int value) {
+        for (PunchInStateEnum outboundType : PunchInStateEnum.values()) {
             if (value == outboundType.value) {
                 return outboundType;
             }

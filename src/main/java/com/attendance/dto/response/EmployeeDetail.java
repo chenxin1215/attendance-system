@@ -27,7 +27,6 @@ public class EmployeeDetail extends EmployeeInfo {
      */
     private String stateStr;
 
-
     public String getEnterDateStr() {
         return enterDateStr;
     }
@@ -62,11 +61,8 @@ public class EmployeeDetail extends EmployeeInfo {
 
     @Override
     public String toString() {
-        return "EmployeeDetail{" +super.toString()+
-                "enterDateStr='" + enterDateStr + '\'' +
-                ", positionStr='" + positionStr + '\'' +
-                ", employeeTypeStr='" + employeeTypeStr + '\'' +
-                ", stateStr='" + stateStr + '\'' +
-                '}';
+        return "EmployeeDetail{" + super.toString() + "enterDateStr='" + enterDateStr + '\'' + ", positionStr='"
+            + positionStr + '\'' + ", employeeTypeStr='" + employeeTypeStr + '\'' + ", stateStr='" + stateStr + '\''
+            + '}';
     }
 }

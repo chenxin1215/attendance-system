@@ -20,6 +20,8 @@ public class UpdateSelfInfoRequest implements Serializable {
 
     private String tel;
 
+    private String password;
+
     public Long getEmployeeId() {
         return employeeId;
     }
@@ -50,5 +52,13 @@ public class UpdateSelfInfoRequest implements Serializable {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

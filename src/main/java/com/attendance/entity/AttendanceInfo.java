@@ -1,16 +1,21 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * attendance_info
- * @author 
+ * 
+ * @author
  */
 public class AttendanceInfo implements Serializable {
     /**
      * 出勤记录编号
      */
+    @TableId(value = "id", type = IdType.AUTO) // 指定自增策略
     private Long attendanceId;
 
     /**
@@ -24,14 +29,21 @@ public class AttendanceInfo implements Serializable {
     private String employeeName;
 
     /**
-     * 上班时间
+     * 上班打卡时间
      */
-    private Date onworkTime;
+    private Date punchInTime;
 
     /**
-     * 下班时间
+     * 上班打卡状态 1-正常；2-迟到；3-缺卡
      */
-    private Date offworkTime;
+    private Integer punchInState;
+
+    private Date punchOutTime;
+
+    /**
+     * 下班打卡状态 1-正常；2-早退；3-缺卡
+     */
+    private Integer punchOutState;
 
     /**
      * 记录年份
@@ -49,7 +61,7 @@ public class AttendanceInfo implements Serializable {
     private Integer recordDay;
 
     /**
-     * 出勤状态 1：正常；2：缺卡；3：旷工
+     * 出勤状态 1：正常；2：异常；3：旷工
      */
     private Integer state;
 
@@ -123,31 +135,53 @@ public class AttendanceInfo implements Serializable {
     }
 
     /**
-     * 获取上班时间
+     * 获取上班打卡时间
      */
-    public Date getOnworkTime() {
-        return onworkTime;
+    public Date getPunchInTime() {
+        return punchInTime;
     }
 
     /**
-     * 设置上班时间
+     * 设置上班打卡时间
      */
-    public void setOnworkTime(Date onworkTime) {
-        this.onworkTime = onworkTime;
+    public void setPunchInTime(Date punchInTime) {
+        this.punchInTime = punchInTime;
     }
 
     /**
-     * 获取下班时间
+     * 获取上班打卡状态 1-正常；2-迟到；3-缺卡
      */
-    public Date getOffworkTime() {
-        return offworkTime;
+    public Integer getPunchInState() {
+        return punchInState;
     }
 
     /**
-     * 设置下班时间
+     * 设置上班打卡状态 1-正常；2-迟到；3-缺卡
      */
-    public void setOffworkTime(Date offworkTime) {
-        this.offworkTime = offworkTime;
+    public void setPunchInState(Integer punchInState) {
+        this.punchInState = punchInState;
+    }
+
+    public Date getPunchOutTime() {
+        return punchOutTime;
+    }
+
+    public void setPunchOutTime(Date punchOutTime) {
+        this.punchOutTime = punchOutTime;
+    }
+
+    /**
+     * 获取下班打卡状态 1-正常；2-早退；3-缺卡
+     */
+    public Integer getPunchOutState() {
+        return punchOutState;
+    }
+
+    /**
+     * 设置下班打卡状态 1-正常；2-早退；3-缺卡
+     */
+    public void setPunchOutState(Integer punchOutState) {
+        this.punchOutState = punchOutState;
     }
 
     /**
@@ -193,14 +227,14 @@ public class AttendanceInfo implements Serializable {
     }
 
     /**
-     * 获取出勤状态 1：正常；2：缺卡；3：旷工
+     * 获取出勤状态 1：正常；2：异常；3：旷工
      */
     public Integer getState() {
         return state;
     }
 
     /**
-     * 设置出勤状态 1：正常；2：缺卡；3：旷工
+     * 设置出勤状态 1：正常；2：异常；3：旷工
      */
     public void setState(Integer state) {
         this.state = state;

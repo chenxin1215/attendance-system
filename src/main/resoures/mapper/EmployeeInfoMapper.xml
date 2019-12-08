@@ -2,200 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.attendance.dao.EmployeeInfoMapper">
     <resultMap id="BaseResultMap" type="com.attendance.entity.EmployeeInfo">
-        <id column="employee_info_employee_id" jdbcType="BIGINT" property="employeeId"/>
-        <result column="employee_info_employee_sn" jdbcType="VARCHAR" property="employeeSn"/>
-        <result column="employee_info_employee_name" jdbcType="VARCHAR" property="employeeName"/>
-        <result column="employee_info_age" jdbcType="INTEGER" property="age"/>
-        <result column="employee_info_sex" jdbcType="INTEGER" property="sex"/>
-        <result column="employee_info_enter_date" jdbcType="DATE" property="enterDate"/>
-        <result column="employee_info_position" jdbcType="INTEGER" property="position"/>
-        <result column="employee_info_employee_type" jdbcType="INTEGER" property="employeeType"/>
-        <result column="employee_info_password" jdbcType="VARCHAR" property="password"/>
-        <result column="employee_info_tel" jdbcType="VARCHAR" property="tel"/>
-        <result column="employee_info_state" jdbcType="INTEGER" property="state"/>
-        <result column="employee_info_create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="employee_info_update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <id column="employee_id" jdbcType="BIGINT" property="employeeId"/>
+        <result column="employee_sn" jdbcType="VARCHAR" property="employeeSn"/>
+        <result column="employee_name" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="enter_date" jdbcType="DATE" property="enterDate"/>
+        <result column="position" jdbcType="INTEGER" property="position"/>
+        <result column="employee_type" jdbcType="INTEGER" property="employeeType"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-    employee_info.employee_id as employee_info_employee_id, employee_info.employee_sn as employee_info_employee_sn, 
-    employee_info.employee_name as employee_info_employee_name, employee_info.age as employee_info_age, 
-    employee_info.sex as employee_info_sex, employee_info.enter_date as employee_info_enter_date, 
-    employee_info.`position` as `employee_info_position`, employee_info.employee_type as employee_info_employee_type, 
-    employee_info.`password` as `employee_info_password`, employee_info.tel as employee_info_tel, 
-    employee_info.`state` as `employee_info_state`, employee_info.create_time as employee_info_create_time, 
-    employee_info.update_time as employee_info_update_time
-  </sql>
-
-
-    <select id="queryAllEmployeeList" resultMap="BaseResultMap">
-    select * from employee_info where state != 2
-  </select>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from employee_info employee_info
-        where employee_info.employee_id = #{employeeId,jdbcType=BIGINT}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from employee_info
-    where employee_id = #{employeeId,jdbcType=BIGINT}
-  </delete>
-    <insert id="insert" parameterType="com.attendance.entity.EmployeeInfo">
-    insert into employee_info (employee_id, employee_sn, employee_name, 
-      age, sex, enter_date, `position`, 
-      employee_type, `password`, tel, 
-      `state`, create_time, update_time
-      )
-    values (#{employeeId,jdbcType=BIGINT}, #{employeeSn,jdbcType=VARCHAR}, #{employeeName,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{enterDate,jdbcType=DATE}, #{position,jdbcType=INTEGER}, 
-      #{employeeType,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-    <insert id="insertSelective" parameterType="com.attendance.entity.EmployeeInfo">
-        insert into employee_info
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="employeeId != null">
-                employee_id,
-            </if>
-            <if test="employeeSn != null">
-                employee_sn,
-            </if>
-            <if test="employeeName != null">
-                employee_name,
-            </if>
-            <if test="age != null">
-                age,
-            </if>
-            <if test="sex != null">
-                sex,
-            </if>
-            <if test="enterDate != null">
-                enter_date,
-            </if>
-            <if test="position != null">
-                `position`,
-            </if>
-            <if test="employeeType != null">
-                employee_type,
-            </if>
-            <if test="password != null">
-                `password`,
-            </if>
-            <if test="tel != null">
-                tel,
-            </if>
-            <if test="state != null">
-                `state`,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="employeeId != null">
-                #{employeeId,jdbcType=BIGINT},
-            </if>
-            <if test="employeeSn != null">
-                #{employeeSn,jdbcType=VARCHAR},
-            </if>
-            <if test="employeeName != null">
-                #{employeeName,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null">
-                #{age,jdbcType=INTEGER},
-            </if>
-            <if test="sex != null">
-                #{sex,jdbcType=INTEGER},
-            </if>
-            <if test="enterDate != null">
-                #{enterDate,jdbcType=DATE},
-            </if>
-            <if test="position != null">
-                #{position,jdbcType=INTEGER},
-            </if>
-            <if test="employeeType != null">
-                #{employeeType,jdbcType=INTEGER},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="tel != null">
-                #{tel,jdbcType=VARCHAR},
-            </if>
-            <if test="state != null">
-                #{state,jdbcType=INTEGER},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.attendance.entity.EmployeeInfo">
-        update employee_info
-        <set>
-            <if test="employeeSn != null">
-                employee_sn = #{employeeSn,jdbcType=VARCHAR},
-            </if>
-            <if test="employeeName != null">
-                employee_name = #{employeeName,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null">
-                age = #{age,jdbcType=INTEGER},
-            </if>
-            <if test="sex != null">
-                sex = #{sex,jdbcType=INTEGER},
-            </if>
-            <if test="enterDate != null">
-                enter_date = #{enterDate,jdbcType=DATE},
-            </if>
-            <if test="position != null">
-                `position` = #{position,jdbcType=INTEGER},
-            </if>
-            <if test="employeeType != null">
-                employee_type = #{employeeType,jdbcType=INTEGER},
-            </if>
-            <if test="password != null">
-                `password` = #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="tel != null">
-                tel = #{tel,jdbcType=VARCHAR},
-            </if>
-            <if test="state != null">
-                `state` = #{state,jdbcType=INTEGER},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where employee_id = #{employeeId,jdbcType=BIGINT}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.attendance.entity.EmployeeInfo">
-    update employee_info
-    set employee_sn = #{employeeSn,jdbcType=VARCHAR},
-      employee_name = #{employeeName,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=INTEGER},
-      enter_date = #{enterDate,jdbcType=DATE},
-      `position` = #{position,jdbcType=INTEGER},
-      employee_type = #{employeeType,jdbcType=INTEGER},
-      `password` = #{password,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR},
-      `state` = #{state,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where employee_id = #{employeeId,jdbcType=BIGINT}
-  </update>
+    employee_id, employee_sn, employee_name, age, sex, enter_date, `position`, employee_type,
+    `password`, tel, `state`, create_time, update_time
+    </sql>
 
     <select id="getNewEmployeeSn" resultType="java.lang.Long">
         select employee_id from employee_info order by employee_id desc limit 1

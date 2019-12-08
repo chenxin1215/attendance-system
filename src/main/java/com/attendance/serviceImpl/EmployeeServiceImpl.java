@@ -1,8 +1,8 @@
 package com.attendance.serviceImpl;
 
 import com.attendance.dao.EmployeeInfoMapper;
-import com.attendance.dto.requset.employee.QueryEmployeeListParam;
 import com.attendance.dto.requset.employee.InsertEmployeeRequest;
+import com.attendance.dto.requset.employee.QueryEmployeeListParam;
 import com.attendance.dto.response.EmployeeDetail;
 import com.attendance.entity.EmployeeInfo;
 import com.attendance.enums.EmployeeStateEnum;
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDetail getEmployeeById(Long employeeId) {
 
         // 获取员工基本信息
-        EmployeeInfo employeeInfo = employeeInfoMapper.selectByPrimaryKey(employeeId);
+        EmployeeInfo employeeInfo = employeeInfoMapper.selectById(employeeId);
 
         // 组装员工信息
         EmployeeDetail employeeDetail = new EmployeeDetail();
@@ -84,8 +84,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeInfo.getEmployeeId();
     }
 
-    public void updateByPrimaryKey(EmployeeInfo employeeInfo) {
-        employeeInfoMapper.updateByPrimaryKeySelective(employeeInfo);
+    public void updateById(EmployeeInfo employeeInfo) {
+        employeeInfoMapper.updateById(employeeInfo);
     }
 
     /**
@@ -97,7 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeInfo employeeInfo = new EmployeeInfo();
         employeeInfo.setEmployeeId(employeeId);
         employeeInfo.setState(EmployeeStateEnum.QUITJOB.value());
-        employeeInfoMapper.updateByPrimaryKeySelective(employeeInfo);
+        employeeInfoMapper.updateById(employeeInfo);
     }
 
     public Long getNewEmployeeSn() {

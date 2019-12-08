@@ -1,5 +1,8 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,6 +14,7 @@ public class EmployeeInfo implements Serializable {
     /**
      * 员工编号
      */
+    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
     private Long employeeId;
 
     /**
@@ -39,7 +43,7 @@ public class EmployeeInfo implements Serializable {
     private Date enterDate;
 
     /**
-     * 职位 待定
+     * 职位 1-CEO 2-总监 3-主管 4-普通员工 
      */
     private Integer position;
 
@@ -160,14 +164,14 @@ public class EmployeeInfo implements Serializable {
     }
 
     /**
-     * 获取职位 待定
+     * 获取职位 1-CEO 2-总监 3-主管 4-普通员工 
      */
     public Integer getPosition() {
         return position;
     }
 
     /**
-     * 设置职位 待定
+     * 设置职位 1-CEO 2-总监 3-主管 4-普通员工 
      */
     public void setPosition(Integer position) {
         this.position = position;

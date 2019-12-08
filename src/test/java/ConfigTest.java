@@ -6,7 +6,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.attendance.dao.ConfigureInfoMapper;
-import com.attendance.entity.ConfigureInfo;
 
 /**
  * 〈一句话功能简述〉<br>

@@ -6,7 +6,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.attendance.dao.EmployeeInfoMapper;
 import com.attendance.dto.response.EmployeeDetail;
-import com.attendance.entity.EmployeeInfo;
 import com.attendance.service.EmployeeService;
 
 @RunWith(SpringJUnit4ClassRunner.class)

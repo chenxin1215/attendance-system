@@ -12,25 +12,17 @@ import com.attendance.entity.AttendanceInfo;
  */
 public class AttendanceDetail extends AttendanceInfo {
 
-    /**
-     * 考勤状态
-     */
     private String stateStr;
 
-    /**
-     * 上班打卡时间
-     */
-    private String onworkTimeStr;
+    private String punchInTimeStr;
 
-    /**
-     * 下班打卡时间
-     */
-    private String offworkTimeStr;
+    private String punchInStateStr;
 
-    /**
-     * 今日工作时长（小时）
-     */
-    private Float workTimeHourse;
+    private String punchOutTimeStr;
+
+    private String punchOutStateStr;
+
+    private String createTimeStr;
 
     public String getStateStr() {
         return stateStr;
@@ -40,28 +32,43 @@ public class AttendanceDetail extends AttendanceInfo {
         this.stateStr = stateStr;
     }
 
-    public String getOnworkTimeStr() {
-        return onworkTimeStr;
+    public String getPunchInTimeStr() {
+        return punchInTimeStr;
     }
 
-    public void setOnworkTimeStr(String onworkTimeStr) {
-        this.onworkTimeStr = onworkTimeStr;
+    public void setPunchInTimeStr(String punchInTimeStr) {
+        this.punchInTimeStr = punchInTimeStr;
     }
 
-    public String getOffworkTimeStr() {
-        return offworkTimeStr;
+    public String getPunchInStateStr() {
+        return punchInStateStr;
     }
 
-    public void setOffworkTimeStr(String offworkTimeStr) {
-        this.offworkTimeStr = offworkTimeStr;
+    public void setPunchInStateStr(String punchInStateStr) {
+        this.punchInStateStr = punchInStateStr;
     }
 
-    public Float getWorkTimeHourse() {
-        return workTimeHourse;
+    public String getPunchOutTimeStr() {
+        return punchOutTimeStr;
     }
 
-    public void setWorkTimeHourse(Float workTimeHourse) {
-        this.workTimeHourse = workTimeHourse;
+    public void setPunchOutTimeStr(String punchOutTimeStr) {
+        this.punchOutTimeStr = punchOutTimeStr;
     }
 
+    public String getPunchOutStateStr() {
+        return punchOutStateStr;
+    }
+
+    public void setPunchOutStateStr(String punchOutStateStr) {
+        this.punchOutStateStr = punchOutStateStr;
+    }
+
+    public String getCreateTimeStr() {
+        return createTimeStr;
+    }
+
+    public void setCreateTimeStr(String createTimeStr) {
+        this.createTimeStr = createTimeStr;
+    }
 }

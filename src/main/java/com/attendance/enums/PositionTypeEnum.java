@@ -7,9 +7,9 @@ import java.util.EnumMap;
  */
 public enum PositionTypeEnum {
 
-    /** 董事长 */
+    /** CEO */
     CEO(1),
-    /** 经理 */
+    /** 总监 */
     MANAGER(2),
     /** 主管 */
     DIRECTOR(3),
@@ -18,10 +18,11 @@ public enum PositionTypeEnum {
 
     private int value;
 
-    private static final EnumMap<PositionTypeEnum, String> TEXT_MAP = new EnumMap<PositionTypeEnum, String>(PositionTypeEnum.class);
+    private static final EnumMap<PositionTypeEnum, String> TEXT_MAP =
+        new EnumMap<PositionTypeEnum, String>(PositionTypeEnum.class);
     static {
-        TEXT_MAP.put(PositionTypeEnum.CEO, "董事长");
-        TEXT_MAP.put(PositionTypeEnum.MANAGER, "经理");
+        TEXT_MAP.put(PositionTypeEnum.CEO, "CEO");
+        TEXT_MAP.put(PositionTypeEnum.MANAGER, "总监");
         TEXT_MAP.put(PositionTypeEnum.DIRECTOR, "主管");
         TEXT_MAP.put(PositionTypeEnum.WORKER, "普通员工");
     }

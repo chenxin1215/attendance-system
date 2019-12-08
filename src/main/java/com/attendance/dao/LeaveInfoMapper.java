@@ -1,9 +1,8 @@
 package com.attendance.dao;
 
 import com.attendance.entity.LeaveInfo;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-/**
- * LeaveInfoMapper继承基类
- */
-public interface LeaveInfoMapper extends BaseMapper<LeaveInfo, Long> {
+public interface LeaveInfoMapper extends BaseMapper<LeaveInfo> {
+
 }

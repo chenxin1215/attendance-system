@@ -1,27 +1,27 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * leave_info
- * @author 
+ * 
+ * @author
  */
 public class LeaveInfo implements Serializable {
     /**
      * 请假记录编号
      */
+    @TableId(value = "id", type = IdType.AUTO) // 指定自增策略
     private Long id;
 
     /**
      * 员工编号
      */
     private Long employeeId;
-
-    /**
-     * 工号
-     */
-    private String employeeSn;
 
     /**
      * 请假理由
@@ -39,9 +39,14 @@ public class LeaveInfo implements Serializable {
     private Date endDate;
 
     /**
-     * 审批状态
+     * 审批人id
      */
-    private Integer approvelState;
+    private Long approveUserId;
+
+    /**
+     * 审批时间
+     */
+    private Date approveTime;
 
     /**
      * 创建时间
@@ -81,20 +86,6 @@ public class LeaveInfo implements Serializable {
      */
     public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
-    }
-
-    /**
-     * 获取工号
-     */
-    public String getEmployeeSn() {
-        return employeeSn;
-    }
-
-    /**
-     * 设置工号
-     */
-    public void setEmployeeSn(String employeeSn) {
-        this.employeeSn = employeeSn;
     }
 
     /**
@@ -140,17 +131,31 @@ public class LeaveInfo implements Serializable {
     }
 
     /**
-     * 获取审批状态
+     * 获取审批人id
      */
-    public Integer getApprovelState() {
-        return approvelState;
+    public Long getApproveUserId() {
+        return approveUserId;
     }
 
     /**
-     * 设置审批状态
+     * 设置审批人id
      */
-    public void setApprovelState(Integer approvelState) {
-        this.approvelState = approvelState;
+    public void setApproveUserId(Long approveUserId) {
+        this.approveUserId = approveUserId;
+    }
+
+    /**
+     * 获取审批时间
+     */
+    public Date getApproveTime() {
+        return approveTime;
+    }
+
+    /**
+     * 设置审批时间
+     */
+    public void setApproveTime(Date approveTime) {
+        this.approveTime = approveTime;
     }
 
     /**

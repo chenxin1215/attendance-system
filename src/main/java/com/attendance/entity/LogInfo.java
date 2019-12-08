@@ -1,16 +1,20 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * log_configure_info
+ * log_info
  * @author 
  */
-public class LogConfigureInfo implements Serializable {
+public class LogInfo implements Serializable {
     /**
      * 日志编号
      */
+    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
     private Long logId;
 
     /**

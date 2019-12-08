@@ -1,5 +1,8 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,6 +14,7 @@ public class MonthStatistics implements Serializable {
     /**
      * 每月统计记录表Id
      */
+    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
     private Long id;
 
     /**

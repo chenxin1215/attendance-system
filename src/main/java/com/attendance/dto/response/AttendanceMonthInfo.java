@@ -1,7 +1,5 @@
 package com.attendance.dto.response;
 
-import com.attendance.entity.MonthStatistics;
-
 /**
  * 〈一句话功能简述〉<br>
  * 〈考勤信息（按月统计）〉

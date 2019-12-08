@@ -3,7 +3,6 @@ package com.attendance.service;
 import com.attendance.dto.requset.approve.ApprovalRequest;
 import com.attendance.dto.requset.approve.QueryApproveParam;
 import com.attendance.dto.response.approve.ApproveInfoData;
-import com.attendance.entity.ApproveInfo;
 
 import java.util.List;
 
@@ -26,11 +25,19 @@ public interface ApproveService {
     List<ApproveInfoData> queryApprovalListByParam(QueryApproveParam request);
 
     /**
-     * 修改审批状态
+     * 通过审批
      *
      * @Author: chenxin
      * @Date: 2019/12/6
      */
-    void updateApproveState(ApproveInfo approveInfo);
+    void passApproval(Long approveId, Long checkUserId);
+
+    /**
+     * 通过审批
+     *
+     * @Author: chenxin
+     * @Date: 2019/12/6
+     */
+    void refusedApproval(Long approveId, Long checkUserId);
 
 }

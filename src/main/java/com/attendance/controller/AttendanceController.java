@@ -1,17 +1,24 @@
 package com.attendance.controller;
 
 import com.attendance.dto.requset.approve.ApprovalRequest;
+import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
 import com.attendance.dto.requset.employee.EmployeeIdRequest;
-import com.attendance.dto.requset.QueryAttendanceInfoParam;
 import com.attendance.dto.response.AttendanceDetail;
 import com.attendance.dto.response.AttendanceMonthInfo;
+import com.attendance.dto.response.ConfigDetail;
 import com.attendance.entity.ApproveInfo;
+import com.attendance.entity.EmployeeInfo;
+import com.attendance.service.AttendanceService;
+import com.attendance.service.ConfigureService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +34,12 @@ import java.util.List;
 @RequestMapping("attendance")
 public class AttendanceController {
 
+    @Autowired
+    private ConfigureService configureService;
+
+    @Autowired
+    private AttendanceService attendanceService;
+
     /**
      * 上班打卡
      * 
@@ -35,8 +48,13 @@ public class AttendanceController {
      */
     @RequestMapping(value = "punchIn", method = RequestMethod.POST)
     @ResponseBody
-    public void punchIn(@RequestBody EmployeeIdRequest request) {
-
+    public void punchIn(@RequestBody EmployeeIdRequest employeeIdRequest, HttpServletRequest request) {
+        Assert.notNull(employeeIdRequest.getEmployeeId(), "员工id不能为空！");
+        EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
+        if (user.getEmployeeId() != employeeIdRequest.getEmployeeId()) {
+            return;
+        }
+        attendanceService.punchIn(employeeIdRequest.getEmployeeId());
     }
 
     /**
@@ -47,8 +65,13 @@ public class AttendanceController {
      */
     @RequestMapping(value = "punchOut", method = RequestMethod.POST)
     @ResponseBody
-    public void punchOut(@RequestBody EmployeeIdRequest request) {
-
+    public void punchOut(@RequestBody EmployeeIdRequest employeeIdRequest, HttpServletRequest request) {
+        Assert.notNull(employeeIdRequest.getEmployeeId(), "员工id不能为空！");
+        EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
+        if (user.getEmployeeId() != employeeIdRequest.getEmployeeId()) {
+            return;
+        }
+        attendanceService.punchOut(employeeIdRequest.getEmployeeId());
     }
 
     /**
@@ -59,11 +82,8 @@ public class AttendanceController {
     @RequestMapping(value = "queryAttendanceInfoByParam", method = RequestMethod.POST)
     @ResponseBody
     public AttendanceDetail queryAttendanceInfoByParam(@RequestBody QueryAttendanceInfoParam request) {
-
-        AttendanceDetail attendanceDetail = new AttendanceDetail();
-
-        return attendanceDetail;
-
+        AttendanceDetail data = attendanceService.getAttendanceDetailByParam(request);
+        return data;
     }
 
     /**
@@ -75,6 +95,8 @@ public class AttendanceController {
     @ResponseBody
     public AttendanceMonthInfo queryAttendanceMonthInfoByParam(@RequestBody QueryAttendanceInfoParam request) {
         AttendanceMonthInfo result = new AttendanceMonthInfo();
+
+
 
         return result;
     }
@@ -112,10 +134,9 @@ public class AttendanceController {
      */
     @RequestMapping(value = "getAttendanceRule", method = RequestMethod.POST)
     @ResponseBody
-    public List<ApproveInfo> getAttendanceRule() {
-        List<ApproveInfo> result = new ArrayList<ApproveInfo>();
-
-        return result;
+    public ConfigDetail getAttendanceRule() {
+        ConfigDetail config = configureService.getConfig();
+        return config;
     }
 
 }

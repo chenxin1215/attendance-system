@@ -2,13 +2,12 @@ package com.attendance.dao;
 
 import com.attendance.dto.requset.OvertimeRequest;
 import com.attendance.entity.OvertimeInfo;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 import java.util.List;
 
-/**
- * OvertimeInfoMapper继承基类
- */
-public interface OvertimeInfoMapper extends BaseMapper<OvertimeInfo, Long> {
+public interface OvertimeInfoMapper extends BaseMapper<OvertimeInfo> {
 
-	List<OvertimeInfo> queryOvertimeInfoByParam(OvertimeRequest overtimeRequest);
+    List<OvertimeInfo> queryOvertimeInfoByParam(OvertimeRequest overtimeRequest);
+
 }

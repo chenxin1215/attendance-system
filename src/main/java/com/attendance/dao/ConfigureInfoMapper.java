@@ -1,9 +1,8 @@
 package com.attendance.dao;
 
 import com.attendance.entity.ConfigureInfo;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-/**
- * ConfigureInfoMapper继承基类
- */
-public interface ConfigureInfoMapper extends BaseMapper<ConfigureInfo, Long> {
+public interface ConfigureInfoMapper extends BaseMapper<ConfigureInfo> {
+
 }

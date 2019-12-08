@@ -1,9 +1,13 @@
 package com.attendance.dao;
 
+import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
 import com.attendance.entity.MonthStatistics;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-/**
- * MonthStatisticsMapper继承基类
- */
-public interface MonthStatisticsMapper extends BaseMapper<MonthStatistics, Long> {
+import java.util.List;
+
+public interface MonthStatisticsMapper extends BaseMapper<MonthStatistics> {
+
+    List<MonthStatistics> queryAttendanceMonthByParam(QueryAttendanceInfoParam param);
+
 }

@@ -12,63 +12,53 @@ import com.attendance.entity.OvertimeInfo;
  */
 public class OvertimeDetail extends OvertimeInfo {
 
-	private String overStarttimeStr;
+    private String overStarttimeStr;
 
-	private String overEndtimeStr;
+    private String overEndtimeStr;
 
-	private String overDateStr;
+    private String overDateStr;
 
-	private String approveStateStr;
+    private String approveName;
 
-	private String approveName;
+    private String approveTimeStr;
 
-	private String approveTime;
+    public String getOverStarttimeStr() {
+        return overStarttimeStr;
+    }
 
-	public String getOverStarttimeStr() {
-		return overStarttimeStr;
-	}
+    public void setOverStarttimeStr(String overStarttimeStr) {
+        this.overStarttimeStr = overStarttimeStr;
+    }
 
-	public void setOverStarttimeStr(String overStarttimeStr) {
-		this.overStarttimeStr = overStarttimeStr;
-	}
+    public String getOverEndtimeStr() {
+        return overEndtimeStr;
+    }
 
-	public String getOverEndtimeStr() {
-		return overEndtimeStr;
-	}
+    public void setOverEndtimeStr(String overEndtimeStr) {
+        this.overEndtimeStr = overEndtimeStr;
+    }
 
-	public void setOverEndtimeStr(String overEndtimeStr) {
-		this.overEndtimeStr = overEndtimeStr;
-	}
+    public String getOverDateStr() {
+        return overDateStr;
+    }
 
-	public String getOverDateStr() {
-		return overDateStr;
-	}
+    public void setOverDateStr(String overDateStr) {
+        this.overDateStr = overDateStr;
+    }
 
-	public void setOverDateStr(String overDateStr) {
-		this.overDateStr = overDateStr;
-	}
+    public String getApproveName() {
+        return approveName;
+    }
 
-	public String getApproveStateStr() {
-		return approveStateStr;
-	}
+    public void setApproveName(String approveName) {
+        this.approveName = approveName;
+    }
 
-	public void setApproveStateStr(String approveStateStr) {
-		this.approveStateStr = approveStateStr;
-	}
+    public String getApproveTimeStr() {
+        return approveTimeStr;
+    }
 
-	public String getApproveName() {
-		return approveName;
-	}
-
-	public void setApproveName(String approveName) {
-		this.approveName = approveName;
-	}
-
-	public String getApproveTime() {
-		return approveTime;
-	}
-
-	public void setApproveTime(String approveTime) {
-		this.approveTime = approveTime;
-	}
+    public void setApproveTimeStr(String approveTimeStr) {
+        this.approveTimeStr = approveTimeStr;
+    }
 }

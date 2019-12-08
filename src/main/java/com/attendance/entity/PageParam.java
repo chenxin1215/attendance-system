@@ -22,6 +22,8 @@ public class PageParam implements Serializable {
      */
     private Integer pageSize;
 
+    private static final long serialVersionUID = 1L;
+
     public Integer getPage() {
         return page;
     }

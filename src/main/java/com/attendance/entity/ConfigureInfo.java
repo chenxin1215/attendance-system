@@ -1,17 +1,20 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * configure_info
- * 
- * @author
+ * @author 
  */
 public class ConfigureInfo implements Serializable {
     /**
      * 配置信息表主键
      */
+    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
     private Long id;
 
     /**
@@ -23,11 +26,6 @@ public class ConfigureInfo implements Serializable {
      * 规定下班时间
      */
     private Date owHours;
-
-    /**
-     * 每天工作时间 (小时)
-     */
-    private Integer dayWorktime;
 
     /**
      * 休息类型 1：单休；2：双休
@@ -89,20 +87,6 @@ public class ConfigureInfo implements Serializable {
     }
 
     /**
-     * 获取每天工作时间 (小时)
-     */
-    public Integer getDayWorktime() {
-        return dayWorktime;
-    }
-
-    /**
-     * 设置每天工作时间 (小时)
-     */
-    public void setDayWorktime(Integer dayWorktime) {
-        this.dayWorktime = dayWorktime;
-    }
-
-    /**
      * 获取休息类型 1：单休；2：双休
      */
     public Integer getBreakType() {
@@ -142,12 +126,5 @@ public class ConfigureInfo implements Serializable {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "ConfigureInfo{" + "id=" + id + ", workHours=" + workHours + ", owHours=" + owHours + ", dayWorktime="
-            + dayWorktime + ", breakType=" + breakType + ", createTime=" + createTime + ", updateTime=" + updateTime
-            + '}';
     }
 }

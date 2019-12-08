@@ -1,9 +1,13 @@
 package com.attendance.dao;
 
+import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
 import com.attendance.entity.AttendanceInfo;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-/**
- * AttendanceInfoMapper继承基类
- */
-public interface AttendanceInfoMapper extends BaseMapper<AttendanceInfo, Long> {
+import java.util.List;
+
+public interface AttendanceInfoMapper extends BaseMapper<AttendanceInfo> {
+
+    List<AttendanceInfo> queryAttendanceByParam(QueryAttendanceInfoParam param);
+
 }

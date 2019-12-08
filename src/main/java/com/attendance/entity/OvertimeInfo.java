@@ -1,16 +1,21 @@
 package com.attendance.entity;
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * overtime_info
- * @author 
+ * 
+ * @author
  */
 public class OvertimeInfo implements Serializable {
     /**
      * 加班记录编号
      */
+    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
     private Long overtimeId;
 
     /**
@@ -39,14 +44,14 @@ public class OvertimeInfo implements Serializable {
     private String overReason;
 
     /**
-     * 审批状态 1：待审核；2：已审核；3：已拒绝
+     * 审批人id
      */
-    private Integer approveState;
+    private Long approveUserId;
 
     /**
-     * 审批信息表id
+     * 审批时间
      */
-    private Long approveId;
+    private Date approveTime;
 
     /**
      * 完成状态
@@ -150,31 +155,31 @@ public class OvertimeInfo implements Serializable {
     }
 
     /**
-     * 获取审批状态 1：待审核；2：已审核；3：已拒绝
-     */
-    public Integer getApproveState() {
-        return approveState;
-    }
-
-    /**
-     * 设置审批状态 1：待审核；2：已审核；3：已拒绝
-     */
-    public void setApproveState(Integer approveState) {
-        this.approveState = approveState;
-    }
-
-    /**
      * 获取审批信息表id
      */
-    public Long getApproveId() {
-        return approveId;
+    public Long getApproveUserId() {
+        return approveUserId;
     }
 
     /**
      * 设置审批信息表id
      */
-    public void setApproveId(Long approveId) {
-        this.approveId = approveId;
+    public void setApproveUserId(Long approveUserId) {
+        this.approveUserId = approveUserId;
+    }
+
+    /**
+     * 获取审批时间
+     */
+    public Date getApproveTime() {
+        return approveTime;
+    }
+
+    /**
+     * 设置审批时间
+     */
+    public void setApproveTime(Date approveTime) {
+        this.approveTime = approveTime;
     }
 
     /**

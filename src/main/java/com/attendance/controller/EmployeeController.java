@@ -1,12 +1,16 @@
 package com.attendance.controller;
 
-import com.attendance.dto.requset.employee.EmployeeIdRequest;
-import com.attendance.dto.requset.UpdatePwdRequest;
 import com.attendance.dto.requset.UpdateSelfInfoRequest;
+import com.attendance.dto.requset.employee.EmployeeIdRequest;
 import com.attendance.dto.response.EmployeeDetail;
+import com.attendance.entity.EmployeeInfo;
 import com.attendance.service.EmployeeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 // localhost:8080/attendance-system/employee/queryAllEmployeeList
 
@@ -42,27 +46,21 @@ public class EmployeeController {
         return employeeDetail;
     }
 
-
-
     /**
      * 修改自身基本信息
      *
      */
     @RequestMapping(value = "updateSelfBaseInfo", method = RequestMethod.POST)
     @ResponseBody
-    public void updateSelfBaseInfo(@RequestBody UpdateSelfInfoRequest request) {
-
-    }
-
-    /**
-     * 修改密码
-     * 
-     * @param request
-     */
-    @RequestMapping(value = "updateEmployeePwd", method = RequestMethod.POST)
-    @ResponseBody
-    public void updateEmployeePwd(@RequestBody UpdatePwdRequest request) {
-
+    public void updateSelfBaseInfo(@RequestBody UpdateSelfInfoRequest updateUpdate, HttpServletRequest request) {
+        Assert.notNull(updateUpdate.getEmployeeId(), "员工id不能为空！");
+        EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
+        if (user.getEmployeeId() != updateUpdate.getEmployeeId()) {
+            return;
+        }
+        EmployeeInfo employeeInfo = new EmployeeInfo();
+        BeanUtils.copyProperties(updateUpdate, employeeInfo);
+        employeeService.updateById(employeeInfo);
     }
 
 }
