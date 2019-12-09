@@ -1,25 +1,31 @@
 package com.attendance.controller;
 
 import com.attendance.dto.requset.approve.ApprovalRequest;
+import com.attendance.dto.requset.approve.QueryApproveParam;
 import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
 import com.attendance.dto.requset.employee.EmployeeIdRequest;
-import com.attendance.dto.response.AttendanceDetail;
-import com.attendance.dto.response.AttendanceMonthInfo;
 import com.attendance.dto.response.ConfigDetail;
-import com.attendance.entity.ApproveInfo;
+import com.attendance.dto.response.approve.ApproveInfoData;
+import com.attendance.dto.response.attendance.AttendanceDetail;
+import com.attendance.dto.response.attendance.AttendanceMonthInfo;
+import com.attendance.dto.view.ListBaseView;
+import com.attendance.dto.view.SimpleView;
+import com.attendance.dto.view.StringView;
 import com.attendance.entity.EmployeeInfo;
+import com.attendance.service.ApproveService;
 import com.attendance.service.AttendanceService;
 import com.attendance.service.ConfigureService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,50 +46,60 @@ public class AttendanceController {
     @Autowired
     private AttendanceService attendanceService;
 
+    @Autowired
+    private ApproveService approveService;
+
     /**
      * 上班打卡
      * 
-     * @param request:
-     *            员工ID
+     * @param request: 员工ID
      */
     @RequestMapping(value = "punchIn", method = RequestMethod.POST)
     @ResponseBody
-    public void punchIn(@RequestBody EmployeeIdRequest employeeIdRequest, HttpServletRequest request) {
+    public StringView punchIn(@RequestBody EmployeeIdRequest employeeIdRequest, HttpServletRequest request) {
+        StringView view = new StringView();
         Assert.notNull(employeeIdRequest.getEmployeeId(), "员工id不能为空！");
         EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
         if (user.getEmployeeId() != employeeIdRequest.getEmployeeId()) {
-            return;
+            view.success(StringView.SILENCE, "");
+        } else {
+            view = attendanceService.punchIn(employeeIdRequest.getEmployeeId());
         }
-        attendanceService.punchIn(employeeIdRequest.getEmployeeId());
+        return view;
     }
 
     /**
      * 下班打卡
      * 
-     * @param request:
-     *            员工ID
+     * @param request: 员工ID
      */
     @RequestMapping(value = "punchOut", method = RequestMethod.POST)
     @ResponseBody
-    public void punchOut(@RequestBody EmployeeIdRequest employeeIdRequest, HttpServletRequest request) {
+    public StringView punchOut(@RequestBody EmployeeIdRequest employeeIdRequest, HttpServletRequest request) {
+        StringView view = new StringView();
         Assert.notNull(employeeIdRequest.getEmployeeId(), "员工id不能为空！");
         EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
         if (user.getEmployeeId() != employeeIdRequest.getEmployeeId()) {
-            return;
+            view.success(StringView.SILENCE, "");
+        } else {
+            view = attendanceService.punchOut(employeeIdRequest.getEmployeeId());
         }
-        attendanceService.punchOut(employeeIdRequest.getEmployeeId());
+        return view;
     }
 
     /**
-     * 查看员工考勤信息详情（日）
+     * 查看员工考勤信息列表（日）
      * 
      * @param request
      */
     @RequestMapping(value = "queryAttendanceInfoByParam", method = RequestMethod.POST)
     @ResponseBody
-    public AttendanceDetail queryAttendanceInfoByParam(@RequestBody QueryAttendanceInfoParam request) {
-        AttendanceDetail data = attendanceService.getAttendanceDetailByParam(request);
-        return data;
+    public ListBaseView<AttendanceDetail> queryAttendanceInfoByParam(@RequestBody QueryAttendanceInfoParam request) {
+        Assert.notNull(request.getEmployeeId(), "员工id不能为空");
+        ListBaseView<AttendanceDetail> view = new ListBaseView();
+        List<AttendanceDetail> attendanceDetails = attendanceService.queryAttendanceDetailListByParam(request);
+        view.success(attendanceDetails);
+        return view;
     }
 
     /**
@@ -93,38 +109,52 @@ public class AttendanceController {
      */
     @RequestMapping(value = "queryAttendanceMonthInfoByParam", method = RequestMethod.POST)
     @ResponseBody
-    public AttendanceMonthInfo queryAttendanceMonthInfoByParam(@RequestBody QueryAttendanceInfoParam request) {
+    public SimpleView queryAttendanceMonthInfoByParam(@RequestBody QueryAttendanceInfoParam request) {
+        Assert.notNull(request.getEmployeeId(), "员工id不能为空");
+        SimpleView view = new SimpleView();
         AttendanceMonthInfo result = new AttendanceMonthInfo();
-
-
-
-        return result;
+        List<AttendanceMonthInfo> attendanceMonthInfos = attendanceService.queryAttendanceMonthListByParam(request);
+        if (!CollectionUtils.isEmpty(attendanceMonthInfos)) {
+            result = attendanceMonthInfos.get(0);
+        }
+        view.success(result);
+        return view;
     }
 
     /**
      * 发起审批流程
      * 
-     * @param request:
-     *            all
+     * @param request: all
      */
     @RequestMapping(value = "createApproval", method = RequestMethod.POST)
     @ResponseBody
-    public void createApproval(@RequestBody ApprovalRequest request) {
+    public StringView createApproval(@RequestBody ApprovalRequest request) {
+        StringView view = new StringView();
 
+        approveService.addApprove(request);
+
+        view.success("审批流程发起成功！");
+        return view;
     }
 
     /**
      * 查看自身审批信息列表
      * 
-     * @param request:
-     *            员工ID，审批类型、审批日期筛选
+     * @param request: 员工ID，审批类型、审批日期筛选
      */
     @RequestMapping(value = "queryApprovalInfoListByEmployeeId", method = RequestMethod.POST)
     @ResponseBody
-    public List<ApproveInfo> queryApprovalInfoListByEmployeeId(@RequestBody ApprovalRequest request) {
-        List<ApproveInfo> result = new ArrayList<ApproveInfo>();
+    public ListBaseView queryApprovalInfoListByEmployeeId(@RequestBody ApprovalRequest request) {
+        Assert.notNull(request.getApprovalUserId(), "员工id不能为空");
 
-        return result;
+        ListBaseView listView = new ListBaseView();
+
+        QueryApproveParam param = new QueryApproveParam();
+        BeanUtils.copyProperties(request, param);
+        List<ApproveInfoData> approveInfoData = approveService.queryApprovalListByParam(param);
+
+        listView.success(approveInfoData);
+        return listView;
     }
 
     /**
@@ -134,9 +164,11 @@ public class AttendanceController {
      */
     @RequestMapping(value = "getAttendanceRule", method = RequestMethod.POST)
     @ResponseBody
-    public ConfigDetail getAttendanceRule() {
+    public SimpleView getAttendanceRule() {
+        SimpleView resp = new SimpleView();
         ConfigDetail config = configureService.getConfig();
-        return config;
+        resp.success(config);
+        return resp;
     }
 
 }

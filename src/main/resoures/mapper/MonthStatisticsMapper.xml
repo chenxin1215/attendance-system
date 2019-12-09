@@ -15,7 +15,6 @@
         <result column="absenteeism_day" jdbcType="INTEGER" property="absenteeismDay"/>
         <result column="leave_day" jdbcType="INTEGER" property="leaveDay"/>
         <result column="work_time" jdbcType="INTEGER" property="workTime"/>
-        <result column="eave_time" jdbcType="INTEGER" property="eaveTime"/>
         <result column="over_time" jdbcType="INTEGER" property="overTime"/>
         <result column="remaining_time" jdbcType="INTEGER" property="remainingTime"/>
         <result column="slack_time" jdbcType="INTEGER" property="slackTime"/>
@@ -27,14 +26,70 @@
 
     <sql id="Base_Column_List">
         id, employee_id, employee_name, work_day, lateness_num, lateness_time, early_num,
-        early_time, miss_num, overtime_num, absenteeism_day, leave_day, work_time, eave_time,
+        early_time, miss_num, overtime_num, absenteeism_day, leave_day, work_time,
         over_time, remaining_time, slack_time, `years`, `months`, create_time, update_time
     </sql>
 
+    <sql id="Page_Query">
+        <if test="page != null and pageSize != null">
+            limit #{offset}, #{pageSize}
+        </if>
+    </sql>
+
+    <sql id="Query_Month_List_Param">
+        <if test="keyword != null and keyword != ''">
+            and (
+            m.employee_name like concat('%',#{keyword},'%')
+            or employee.employee_sn like concat('%',#{keyword},'%')
+            )
+        </if>
+        <if test="employeeId != null">
+            and m.employee_id = #{employeeId}
+        </if>
+        <if test="recordYear != null">
+            and m.years = #{recordYear}
+        </if>
+        <if test="recordMonth != null">
+            and m.months = #{recordMonth}
+        </if>
+        <if test="position != null">
+            and employee.position = #{position}
+        </if>
+    </sql>
+
+    <insert id="batchInsert" parameterType="com.attendance.entity.MonthStatistics">
+        <if test="list != null and list.size > 0">
+            insert into month_statistics
+            ( employee_id,employee_name,work_day,lateness_num,lateness_time,early_num,early_time,miss_num,overtime_num,
+            absenteeism_day,leave_day,work_time,over_time,absenteeism_day,remaining_time,slack_time,years,months)
+            values
+            <foreach collection="list" item="item" separator=",">
+                ( #{item.employeeId},#{iTtem.employeeName}, #{item.workDay}, #{item.latenessNum},
+                #{item.latenessTime}, #{iTtem.earlyNum}, #{item.earlyTime},#{item.missNum}, #{item.overtimeNum},
+                #{item.absenteeismDay},#{item.leaveDay},#{item.workTime},#{item.overTime},#{item.remainingTime},
+                #{item.slackTime},#{item.years},#{item.months})
+            </foreach>
+        </if>
+    </insert>
+
+    <select id="queryAttendanceMonthListByParamCount" resultType="java.lang.Integer">
+        select COUNT(1)
+        from month_statistics m
+        join employee_info employee on m.employee_id = employee.employee_id
+        <where>
+            <include refid="Query_Month_List_Param"></include>
+        </where>
+    </select>
+
     <select id="queryAttendanceMonthByParam" resultMap="BaseResultMap">
         select *
-        from month_statistics
-        /* TODO 添加考勤月份多条件列表查询 */
+        from month_statistics m
+        join employee_info employee on m.employee_id = employee.employee_id
+        <where>
+            <include refid="Query_Month_List_Param"></include>
+        </where>
+        order by m.id desc
+        <include refid="Page_Query"></include>
     </select>
 
 </mapper>

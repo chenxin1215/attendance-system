@@ -10,6 +10,7 @@ import com.attendance.service.OvertimeService;
 import com.attendance.utils.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
  * @create 2019-12-05
  * @since 1.0.0
  */
+@Service
 public class OvertimeServiceImpl implements OvertimeService {
 
     @Autowired
@@ -50,13 +52,6 @@ public class OvertimeServiceImpl implements OvertimeService {
             }
             if (overtimeInfo.getOverDate() != null) {
                 detail.setOverDateStr(DateUtil.dateToString(overtimeInfo.getOverDate(), DateUtil.DATE_BASE));
-            }
-            if (overtimeInfo.getOverStarttime() != null) {
-                detail.setOverStarttimeStr(
-                    DateUtil.dateToString(overtimeInfo.getOverStarttime(), DateUtil.DATETIME_BASE));
-            }
-            if (overtimeInfo.getOverEndtime() != null) {
-                detail.setOverEndtimeStr(DateUtil.dateToString(overtimeInfo.getOverEndtime(), DateUtil.DATETIME_BASE));
             }
             overtimeDetails.add(detail);
         }

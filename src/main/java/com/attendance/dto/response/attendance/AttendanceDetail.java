@@ -1,4 +1,4 @@
-package com.attendance.dto.response;
+package com.attendance.dto.response.attendance;
 
 import com.attendance.entity.AttendanceInfo;
 

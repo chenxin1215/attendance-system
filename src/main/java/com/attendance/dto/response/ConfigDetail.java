@@ -1,5 +1,7 @@
 package com.attendance.dto.response;
 
+import com.attendance.entity.ConfigureInfo;
+
 /**
  * 〈一句话功能简述〉<br>
  * 〈考勤规则详情〉

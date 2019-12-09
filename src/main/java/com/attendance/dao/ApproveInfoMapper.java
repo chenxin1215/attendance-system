@@ -2,7 +2,7 @@ package com.attendance.dao;
 
 import com.attendance.dto.requset.approve.QueryApproveParam;
 import com.attendance.entity.ApproveInfo;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 

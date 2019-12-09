@@ -1,7 +1,7 @@
 package com.attendance.entity;
 
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class OvertimeInfo implements Serializable {
     /**
      * 加班记录编号
      */
-    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
+    @TableId(value = "id", type = IdType.AUTO) // 指定自增策略
     private Long overtimeId;
 
     /**
@@ -26,12 +26,12 @@ public class OvertimeInfo implements Serializable {
     /**
      * 加班开始时间
      */
-    private Date overStarttime;
+    private Date overStartTime;
 
     /**
      * 加班结束时间
      */
-    private Date overEndtime;
+    private Date overEndTime;
 
     /**
      * 加班日期
@@ -98,32 +98,20 @@ public class OvertimeInfo implements Serializable {
         this.employeeId = employeeId;
     }
 
-    /**
-     * 获取加班开始时间
-     */
-    public Date getOverStarttime() {
-        return overStarttime;
+    public Date getOverStartTime() {
+        return overStartTime;
     }
 
-    /**
-     * 设置加班开始时间
-     */
-    public void setOverStarttime(Date overStarttime) {
-        this.overStarttime = overStarttime;
+    public void setOverStartTime(Date overStartTime) {
+        this.overStartTime = overStartTime;
     }
 
-    /**
-     * 获取加班结束时间
-     */
-    public Date getOverEndtime() {
-        return overEndtime;
+    public Date getOverEndTime() {
+        return overEndTime;
     }
 
-    /**
-     * 设置加班结束时间
-     */
-    public void setOverEndtime(Date overEndtime) {
-        this.overEndtime = overEndtime;
+    public void setOverEndTime(Date overEndTime) {
+        this.overEndTime = overEndTime;
     }
 
     /**

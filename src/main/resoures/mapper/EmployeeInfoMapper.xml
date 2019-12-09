@@ -16,13 +16,61 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
     <sql id="Base_Column_List">
     employee_id, employee_sn, employee_name, age, sex, enter_date, `position`, employee_type,
     `password`, tel, `state`, create_time, update_time
     </sql>
 
+    <sql id="Page_Query">
+        <if test="page != null and pageSize != null">
+            limit #{offset}, #{pageSize}
+        </if>
+    </sql>
+
+    <sql id="Query_Param">
+        <if test="keyword != null and keyword != ''">
+            and (
+            employee_sn like concat('',#{keyword},'')
+            or employee_name like concat('',#{keyword},'')
+            or tel like concat('',#{keyword},'')
+            )
+        </if>
+        <if test="state != null">
+            and state = #{state}
+        </if>
+        <if test="position != null">
+            and 'position' = #{position}
+        </if>
+        <if test="enterDateStart != null and enterDateEnd != null">
+            and (
+            enter_date <![CDATA[>=]]> #{enterDateStart}
+            and enter_date <![CDATA[<=]]> #{enterDateEnd}
+            )
+        </if>
+    </sql>
+
     <select id="getNewEmployeeSn" resultType="java.lang.Long">
         select employee_id from employee_info order by employee_id desc limit 1
+    </select>
+
+    <select id="queryEmployeeListByParamCount" resultType="java.lang.Integer">
+        select COUNT(1)
+        from employee_info
+        <where>
+            <include refid="Query_Param"></include>
+        </where>
+    </select>
+
+    <select id="queryEmployeeListByParam" resultType="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from employee_info
+        <where>
+            <include refid="Query_Param"></include>
+        </where>
+        order by create_time desc
+        <include refid="Page_Query"></include>
     </select>
 
 </mapper>

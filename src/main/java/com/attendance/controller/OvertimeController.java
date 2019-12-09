@@ -2,6 +2,7 @@ package com.attendance.controller;
 
 import com.attendance.dto.requset.OvertimeRequest;
 import com.attendance.dto.response.OvertimeDetail;
+import com.attendance.dto.view.ListBaseView;
 import com.attendance.service.OvertimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,15 +17,15 @@ import java.util.List;
 @Controller
 public class OvertimeController {
 
-	@Autowired
-	private OvertimeService overtimeService;
+    @Autowired
+    private OvertimeService overtimeService;
 
-	@ResponseBody
-	@RequestMapping(value = "queryOvertimeInfoByParam", method = RequestMethod.POST)
-	public List<OvertimeDetail> queryOvertimeInfoByParam(@RequestBody OvertimeRequest request) {
-
-		List<OvertimeDetail> dataList = overtimeService.queryOvertimeInfoByParam(request);
-
-		return dataList;
-	}
+    @ResponseBody
+    @RequestMapping(value = "queryOvertimeInfoByParam", method = RequestMethod.POST)
+    public ListBaseView<OvertimeDetail> queryOvertimeInfoByParam(@RequestBody OvertimeRequest request) {
+        ListBaseView<OvertimeDetail> view = new ListBaseView<>();
+        List<OvertimeDetail> dataList = overtimeService.queryOvertimeInfoByParam(request);
+        view.success(dataList);
+        return view;
+    }
 }

@@ -1,17 +1,18 @@
 package com.attendance.service;
 
 import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
-import com.attendance.dto.response.AttendanceDetail;
+import com.attendance.dto.response.attendance.AttendanceDetail;
+import com.attendance.dto.response.attendance.AttendanceMonthInfo;
+import com.attendance.dto.view.StringView;
 import com.attendance.entity.AttendanceInfo;
-import com.attendance.entity.MonthStatistics;
 
 import java.util.List;
 
 public interface AttendanceService {
 
-    Integer punchIn(Long employeeId);
+    StringView punchIn(Long employeeId);
 
-    Integer punchOut(Long employeeId);
+    StringView punchOut(Long employeeId);
 
     void updateAttendance(AttendanceInfo attendanceInfo);
 
@@ -24,13 +25,28 @@ public interface AttendanceService {
     AttendanceDetail getAttendanceDetailByParam(QueryAttendanceInfoParam param);
 
     /**
-     * 条件查询每日考勤
+     * 条件查询考勤列表 按日
      * 
      * @param param
      * @return
      */
     List<AttendanceDetail> queryAttendanceDetailListByParam(QueryAttendanceInfoParam param);
 
+    /**
+     * 功能描述: 条件查询考勤列表 按月
+     *
+     * @Author: xx
+     * @Date: 2019/12/9
+     */
+    List<AttendanceMonthInfo> queryAttendanceMonthListByParam(QueryAttendanceInfoParam param);
 
-    List<MonthStatistics> queryAttendanceMonthListByParam(QueryAttendanceInfoParam param);
+    int queryAttendanceMonthListByParamCount(QueryAttendanceInfoParam param);
+
+    /**
+     * 功能描述: 重新生成某月考勤信息
+     *
+     * @Author: xx
+     * @Date: 2019/12/9
+     */
+    Integer generateMonthAttendanceInfo(QueryAttendanceInfoParam param, Long operationUserId);
 }

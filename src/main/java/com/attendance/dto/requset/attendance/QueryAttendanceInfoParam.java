@@ -23,6 +23,10 @@ public class QueryAttendanceInfoParam extends PageParam {
     private Long employeeId;
 
     /**
+     * 员工职位
+     */
+    private Integer position;
+    /**
      * 考勤日期
      */
     private String attendanceDate;
@@ -153,5 +157,13 @@ public class QueryAttendanceInfoParam extends PageParam {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 }

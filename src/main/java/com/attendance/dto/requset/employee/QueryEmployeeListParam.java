@@ -38,6 +38,11 @@ public class QueryEmployeeListParam extends PageParam {
      */
     private Integer position;
 
+    /**
+     * 在职状态
+     */
+    private Integer state;
+
     public String getKeyword() {
         return keyword;
     }
@@ -84,5 +89,13 @@ public class QueryEmployeeListParam extends PageParam {
 
     public void setPosition(Integer position) {
         this.position = position;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

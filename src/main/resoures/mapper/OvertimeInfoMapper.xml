@@ -4,8 +4,8 @@
     <resultMap id="BaseResultMap" type="com.attendance.entity.OvertimeInfo">
         <id column="overtime_id" jdbcType="BIGINT" property="overtimeId"/>
         <result column="employee_id" jdbcType="BIGINT" property="employeeId"/>
-        <result column="over_starttime" jdbcType="TIMESTAMP" property="overStarttime"/>
-        <result column="over_endtime" jdbcType="TIMESTAMP" property="overEndtime"/>
+        <result column="over_start_time" jdbcType="TIMESTAMP" property="overStartTime"/>
+        <result column="over_end_time" jdbcType="TIMESTAMP" property="overEndTime"/>
         <result column="over_date" jdbcType="DATE" property="overDate"/>
         <result column="over_reason" jdbcType="VARCHAR" property="overReason"/>
         <result column="approve_user_id" jdbcType="BIGINT" property="approveUserId"/>
@@ -15,8 +15,35 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Base_Column_List">
-        overtime_id, employee_id, over_starttime, over_endtime, over_date, over_reason,
+        overtime_id, employee_id, over_start_time, over_end_time, over_date, over_reason,
         approve_user_id, approve_time, complete_state, create_time, update_time
     </sql>
+
+    <sql id="Query_Param">
+        <if test="employeeId != null">
+            and employee_id = #{employeeId}
+        </if>
+        <if test="overDateStart != null and overDateEnd != null">
+            and (
+            over_date <![CDATA[>=]]> #{overDateStart}
+            and over_date <![CDATA[<=]]> #{overDateEnd}
+            )
+        </if>
+        <if test="completeState != null">
+            and complete_state = #{completeState}
+        </if>
+        <if test="completeState == null">
+            and complete_state = 1
+        </if>
+    </sql>
+
+    <select id="queryOvertimeInfoByParam" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from overtime_info
+        <where>
+            <include refid="Query_Param"></include>
+        </where>
+    </select>
 
 </mapper>

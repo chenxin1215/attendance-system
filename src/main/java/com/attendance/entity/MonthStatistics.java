@@ -1,20 +1,21 @@
 package com.attendance.entity;
 
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * month_statistics
- * @author 
+ * 
+ * @author
  */
 public class MonthStatistics implements Serializable {
     /**
      * 每月统计记录表Id
      */
-    @TableId(value = "id",type = IdType.AUTO)//指定自增策略
+    @TableId(value = "id", type = IdType.AUTO) // 指定自增策略
     private Long id;
 
     /**
@@ -76,11 +77,6 @@ public class MonthStatistics implements Serializable {
      * 累计工作时间
      */
     private Integer workTime;
-
-    /**
-     * 累计请假时间
-     */
-    private Integer eaveTime;
 
     /**
      * 累计加班时间
@@ -299,20 +295,6 @@ public class MonthStatistics implements Serializable {
      */
     public void setWorkTime(Integer workTime) {
         this.workTime = workTime;
-    }
-
-    /**
-     * 获取累计请假时间
-     */
-    public Integer getEaveTime() {
-        return eaveTime;
-    }
-
-    /**
-     * 设置累计请假时间
-     */
-    public void setEaveTime(Integer eaveTime) {
-        this.eaveTime = eaveTime;
     }
 
     /**

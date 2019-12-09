@@ -17,7 +17,9 @@ public enum AttendanceStateEnum {
     /** 异常 */
     EXCEPTION(2),
     /** 旷工 */
-    ABSENTEEISM(3);
+    ABSENTEEISM(3),
+    /** 加班 */
+    OVERTIME(4);
 
     private int value;
 
@@ -27,6 +29,7 @@ public enum AttendanceStateEnum {
         TEXT_MAP.put(AttendanceStateEnum.NORMAL, "正常");
         TEXT_MAP.put(AttendanceStateEnum.EXCEPTION, "异常");
         TEXT_MAP.put(AttendanceStateEnum.ABSENTEEISM, "旷工");
+        TEXT_MAP.put(AttendanceStateEnum.OVERTIME, "加班");
     }
 
     AttendanceStateEnum(int value) {

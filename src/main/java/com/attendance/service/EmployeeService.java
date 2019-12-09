@@ -16,7 +16,11 @@ public interface EmployeeService {
      */
     List<EmployeeDetail> queryEmployeeListByParam(QueryEmployeeListParam param);
 
+    int queryEmployeeListByParamCount(QueryEmployeeListParam param);
+
     EmployeeDetail getEmployeeById(Long employeeId);
+
+    EmployeeInfo getEmployeeBySn(String employeeSn);
 
     Long insertEmployee(InsertEmployeeRequest request);
 

@@ -11,37 +11,46 @@ import java.util.Date;
  * @create 2019-12-05
  * @since 1.0.0
  */
-public class OvertimeRequest implements Serializable{
+public class OvertimeRequest implements Serializable {
 
-	private Long employeeId;
+    private Long employeeId;
 
-	private Date overtimeStart;
+    private Date overDateStart;
 
-	private Date overtimeEnd;
+    private Date overDateEnd;
 
-	public Long getEmployeeId() {
-		return employeeId;
-	}
+    // 加班完成状态
+    private Integer completeState;
 
-	public void setEmployeeId(Long employeeId) {
-		this.employeeId = employeeId;
-	}
+    public Long getEmployeeId() {
+        return employeeId;
+    }
 
-	public Date getOvertimeStart() {
-		return overtimeStart;
-	}
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
 
-	public void setOvertimeStart(Date overtimeStart) {
-		this.overtimeStart = overtimeStart;
-	}
+    public Date getOverDateStart() {
+        return overDateStart;
+    }
 
-	public Date getOvertimeEnd() {
-		return overtimeEnd;
-	}
+    public void setOverDateStart(Date overDateStart) {
+        this.overDateStart = overDateStart;
+    }
 
-	public void setOvertimeEnd(Date overtimeEnd) {
-		this.overtimeEnd = overtimeEnd;
-	}
+    public Date getOverDateEnd() {
+        return overDateEnd;
+    }
 
+    public void setOverDateEnd(Date overDateEnd) {
+        this.overDateEnd = overDateEnd;
+    }
 
+    public Integer getCompleteState() {
+        return completeState;
+    }
+
+    public void setCompleteState(Integer completeState) {
+        this.completeState = completeState;
+    }
 }

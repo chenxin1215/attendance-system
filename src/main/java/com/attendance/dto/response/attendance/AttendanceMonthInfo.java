@@ -1,4 +1,6 @@
-package com.attendance.dto.response;
+package com.attendance.dto.response.attendance;
+
+import com.attendance.entity.MonthStatistics;
 
 /**
  * 〈一句话功能简述〉<br>

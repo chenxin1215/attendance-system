@@ -33,7 +33,7 @@ public interface ApproveService {
     void passApproval(Long approveId, Long checkUserId);
 
     /**
-     * 通过审批
+     * 拒绝审批
      *
      * @Author: chenxin
      * @Date: 2019/12/6

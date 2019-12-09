@@ -11,6 +11,7 @@ import com.attendance.enums.PositionTypeEnum;
 import com.attendance.service.EmployeeService;
 import com.attendance.utils.DateUtil;
 import com.attendance.utils.SnUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         return result;
     }
 
+    @Override
+    public int queryEmployeeListByParamCount(QueryEmployeeListParam param) {
+
+        // 将String类型的时间转为Date
+        param.setEnterDateStart(param.getEnterDateStartStr() == null ? null
+            : DateUtil.getInitStart(DateUtil.stringToDate(param.getEnterDateStartStr(), DateUtil.DATETIME_BASE)));
+        param.setEnterDateEnd(param.getEnterDateEndStr() == null ? null
+            : DateUtil.getInitEnd(DateUtil.stringToDate(param.getEnterDateEndStr(), DateUtil.DATETIME_BASE)));
+
+        return employeeInfoMapper.queryEmployeeListByParamCount(param);
+    }
+
     public EmployeeDetail getEmployeeById(Long employeeId) {
 
         // 获取员工基本信息
@@ -72,6 +85,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDetail.setStateStr(EmployeeStateEnum.parse(employeeInfo.getState()).toString());
 
         return employeeDetail;
+    }
+
+    @Override
+    public EmployeeInfo getEmployeeBySn(String employeeSn) {
+        if (employeeSn == null) {
+            return null;
+        }
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("employee_sn", employeeSn);
+        EmployeeInfo employeeInfo = employeeInfoMapper.selectOne(queryWrapper);
+        return employeeInfo;
     }
 
     public Long insertEmployee(InsertEmployeeRequest request) {

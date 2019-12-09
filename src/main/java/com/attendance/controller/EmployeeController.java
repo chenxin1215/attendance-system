@@ -3,6 +3,8 @@ package com.attendance.controller;
 import com.attendance.dto.requset.UpdateSelfInfoRequest;
 import com.attendance.dto.requset.employee.EmployeeIdRequest;
 import com.attendance.dto.response.EmployeeDetail;
+import com.attendance.dto.view.SimpleView;
+import com.attendance.dto.view.StringView;
 import com.attendance.entity.EmployeeInfo;
 import com.attendance.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
@@ -37,13 +39,15 @@ public class EmployeeController {
      */
     @RequestMapping(value = "queryEmployeeDetailById", method = RequestMethod.POST)
     @ResponseBody
-    public EmployeeDetail queryEmployeeDetailById(@RequestBody EmployeeIdRequest request) {
+    public SimpleView queryEmployeeDetailById(@RequestBody EmployeeIdRequest request) {
         System.out.println("### queryEmployeeDetailById start ###");
+        SimpleView view = new SimpleView();
 
         EmployeeDetail employeeDetail = employeeService.getEmployeeById(request.getEmployeeId());
 
         System.out.println("### queryEmployeeDetailById end ###");
-        return employeeDetail;
+        view.success(employeeDetail);
+        return view;
     }
 
     /**
@@ -52,15 +56,19 @@ public class EmployeeController {
      */
     @RequestMapping(value = "updateSelfBaseInfo", method = RequestMethod.POST)
     @ResponseBody
-    public void updateSelfBaseInfo(@RequestBody UpdateSelfInfoRequest updateUpdate, HttpServletRequest request) {
+    public StringView updateSelfBaseInfo(@RequestBody UpdateSelfInfoRequest updateUpdate, HttpServletRequest request) {
+        StringView view = new StringView();
         Assert.notNull(updateUpdate.getEmployeeId(), "员工id不能为空！");
         EmployeeInfo user = (EmployeeInfo)request.getSession().getAttribute("user");
         if (user.getEmployeeId() != updateUpdate.getEmployeeId()) {
-            return;
+            view.success(StringView.NOTIFY, "只能修改自己的信息", null);
+        } else {
+            EmployeeInfo employeeInfo = new EmployeeInfo();
+            BeanUtils.copyProperties(updateUpdate, employeeInfo);
+            employeeService.updateById(employeeInfo);
+            view.success();
         }
-        EmployeeInfo employeeInfo = new EmployeeInfo();
-        BeanUtils.copyProperties(updateUpdate, employeeInfo);
-        employeeService.updateById(employeeInfo);
+        return view;
     }
 
 }

@@ -1,8 +1,8 @@
 package com.attendance.dao;
 
 import com.attendance.entity.LogInfo;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface LogInfoMapper extends BaseMapper<LogInfo>{
+public interface LogInfoMapper extends BaseMapper<LogInfo> {
 
 }

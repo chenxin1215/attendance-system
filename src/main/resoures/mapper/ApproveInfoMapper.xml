@@ -18,6 +18,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
+
     <sql id="Base_Column_List">
         approve_id, employee_id, employee_name, approve_type, leave_id, overtime_id, start_date,
         end_date, approve_user_id, approve_reason, approve_state, approve_person, approve_time, create_time,

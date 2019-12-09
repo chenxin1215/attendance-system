@@ -1,7 +1,9 @@
-package com.attendance.service;/**
-                                * @author cx
-                                * @since 2019/12/8 17:18
-                                */
+package com.attendance.service;
+
+/**
+ * @author cx
+ * @since 2019/12/8 17:18
+ */
 
 import com.attendance.dto.response.ConfigDetail;
 import com.attendance.entity.ConfigureInfo;
@@ -16,8 +18,10 @@ import com.attendance.entity.ConfigureInfo;
  */
 public interface ConfigureService {
 
-    void updateConfig(ConfigureInfo configureInfo);
+    void updateConfig(ConfigureInfo configureInfo, Long userId);
 
     ConfigDetail getConfig();
+
+    Integer getTime();
 
 }
