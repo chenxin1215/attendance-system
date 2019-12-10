@@ -1,3 +1,4 @@
+import com.attendance.entity.ConfigureInfo;
 import com.attendance.utils.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import com.attendance.dao.ConfigureInfoMapper;
  * @since 1.0.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath: applicationContext.xml"})
 public class ConfigTest {
 
     @Autowired
@@ -25,7 +26,7 @@ public class ConfigTest {
     // 获取配置信息 ID：1
     @Test
     public void getConfigInfo() {
-        ConfigureInfo configureInfo = configureInfoMapper.selectByPrimaryKey(1L);
+        ConfigureInfo configureInfo = configureInfoMapper.selectById(1L);
         System.out.println("上班时间" + DateUtil.dateToString(configureInfo.getWorkHours(), DateUtil.TIME_BASE));
     }
 

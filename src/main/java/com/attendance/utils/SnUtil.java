@@ -1,8 +1,5 @@
 package com.attendance.utils;
 
-import com.attendance.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class SnUtil {
 
     public static String createEmployeeSn(Long newEmployeeSn) {

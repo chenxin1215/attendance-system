@@ -1,5 +1,7 @@
 package com.attendance.dto.response.approve;
 
+import com.attendance.entity.ApproveInfo;
+
 /**
  * 审批信息数据
  *

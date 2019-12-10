@@ -1,3 +1,4 @@
+import com.attendance.entity.EmployeeInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class EmployeeTest {
 
     @Test
     public void testInsertEmployee() {
-        EmployeeInfo employeeInfo = employeeInfoMapper.selectByPrimaryKey(1768L);
+        EmployeeInfo employeeInfo = employeeInfoMapper.selectById(1768L);
         employeeInfo.setAge(100);
-        employeeInfoMapper.updateByPrimaryKeySelective(employeeInfo);
+        employeeInfoMapper.updateById(employeeInfo);
     }
 
     @Test

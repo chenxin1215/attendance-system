@@ -5,8 +5,8 @@ package com.attendance.service;
  * @since 2019/12/8 17:18
  */
 
-import com.attendance.dto.response.ConfigDetail;
 import com.attendance.entity.ConfigureInfo;
+import com.attendance.dto.response.ConfigDetail;
 
 /**
  * 〈一句话功能简述〉<br>

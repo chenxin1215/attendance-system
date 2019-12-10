@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.attendance.dao.MonthStatisticsMapper">
-    <resultMap id="BaseResultMap" type="com.attendance.entity.MonthStatistics">
+<mapper namespace="MonthStatisticsMapper">
+    <resultMap id="BaseResultMap" type="MonthStatistics">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="employee_id" jdbcType="BIGINT" property="employeeId"/>
         <result column="employee_name" jdbcType="VARCHAR" property="employeeName"/>
@@ -57,7 +57,7 @@
         </if>
     </sql>
 
-    <insert id="batchInsert" parameterType="com.attendance.entity.MonthStatistics">
+    <insert id="batchInsert" parameterType="MonthStatistics">
         <if test="list != null and list.size > 0">
             insert into month_statistics
             ( employee_id,employee_name,work_day,lateness_num,lateness_time,early_num,early_time,miss_num,overtime_num,

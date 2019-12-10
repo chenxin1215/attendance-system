@@ -1,9 +1,10 @@
 package com.attendance.controller;
 
 import com.attendance.dto.requset.LoginRequest;
-import com.attendance.dto.view.StringView;
 import com.attendance.entity.EmployeeInfo;
 import com.attendance.service.EmployeeService;
+import com.attendance.dto.view.SimpleView;
+import com.attendance.dto.view.StringView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,6 +43,18 @@ public class LoginController {
             request.getSession().setAttribute("user", employeeInfo);
             view.success("登陆成功！");
         }
+        return view;
+    }
+
+    @RequestMapping(value = "getUser", method = RequestMethod.POST)
+    @ResponseBody
+    public SimpleView getUser(@RequestBody HttpServletRequest request) {
+        SimpleView view = new SimpleView();
+        if (request.getSession().getAttribute("user") != null) {
+            EmployeeInfo employeeInfo = (EmployeeInfo)request.getSession().getAttribute("user");
+            view.setRspData(employeeInfo);
+        }
+        view.success();
         return view;
     }
 

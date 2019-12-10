@@ -1,10 +1,10 @@
 package com.attendance.service;
 
-import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
 import com.attendance.dto.response.attendance.AttendanceDetail;
 import com.attendance.dto.response.attendance.AttendanceMonthInfo;
 import com.attendance.dto.view.StringView;
 import com.attendance.entity.AttendanceInfo;
+import com.attendance.dto.requset.attendance.QueryAttendanceInfoParam;
 
 import java.util.List;
 
@@ -49,4 +49,6 @@ public interface AttendanceService {
      * @Date: 2019/12/9
      */
     Integer generateMonthAttendanceInfo(QueryAttendanceInfoParam param, Long operationUserId);
+
+    Long insertAttendance(AttendanceInfo attendanceInfo);
 }

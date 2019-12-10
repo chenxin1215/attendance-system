@@ -8,10 +8,10 @@ import com.attendance.dto.response.ConfigDetail;
 import com.attendance.dto.response.attendance.AttendanceDetail;
 import com.attendance.dto.response.attendance.AttendanceMonthInfo;
 import com.attendance.dto.view.StringView;
-import com.attendance.entity.*;
-import com.attendance.enums.*;
 import com.attendance.service.AttendanceService;
 import com.attendance.service.ConfigureService;
+import com.attendance.entity.*;
+import com.attendance.enums.*;
 import com.attendance.utils.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
@@ -471,4 +471,9 @@ public class AttendanceServiceImpl implements AttendanceService {
         return 1;
     }
 
+    @Override
+    public Long insertAttendance(AttendanceInfo attendanceInfo) {
+        attendanceInfoMapper.insert(attendanceInfo);
+        return attendanceInfo.getAttendanceId();
+    }
 }
